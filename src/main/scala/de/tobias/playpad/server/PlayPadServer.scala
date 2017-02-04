@@ -44,6 +44,7 @@ object PlayPadServer extends App {
 
 	// Setup Http Server
 	Spark.port(8090)
+	secure("deploy/keystore.jks", "password", null, null);
 	get("/", (req, res) => "Hallo World")
 
 	get("/plugin/list", (req, res) => {
