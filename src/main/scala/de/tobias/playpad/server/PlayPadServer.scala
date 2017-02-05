@@ -1,14 +1,14 @@
 package de.tobias.playpad.server
 
 import java.nio.file.{Files, Paths}
-import java.util.Properties
 
-import com.google.gson.Gson
 import com.j256.ormlite.dao.{Dao, DaoManager}
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.table.TableUtils
 import de.tobias.playpad.server.plugin.Plugin
-import spark.Spark
+import de.tobias.playpad.server.server.plugin.{PluginGet, PluginList}
+import de.tobias.playpad.server.settings.SettingsHandler
+import de.tobias.playpad.server.transformer.JsonTransformer
 import spark.Spark._
 import spark.route.RouteOverview
 
@@ -18,40 +18,35 @@ import spark.route.RouteOverview
 object PlayPadServer extends App {
 
 	// Load Config
-	val properties = new Properties()
-	private val path = Paths.get("settings.properties")
-	if (Files.notExists(path)) {
-		val loader = Thread.currentThread.getContextClassLoader
-		val input = loader.getResourceAsStream("settings/settings.properties")
-		Files.copy(input, path)
+	private val settingsLoader = SettingsHandler.loader
+	private val settingsPath = Paths.get("settings.properties")
+
+	if (Files.notExists(settingsPath)) {
+		SettingsHandler.saver.default(settingsPath)
 	}
-	properties.load(Files.newBufferedReader(path))
 
-	// Setup Database
-	private val host = properties.getProperty("host")
-	private val port = properties.getProperty("port")
-	private val username = properties.getProperty("username")
-	private val password = properties.getProperty("password")
-	private val database = properties.getProperty("database")
+	private val settings = settingsLoader.load(settingsPath)
 
-	private val databaseUrl = "jdbc:mysql://" + host + ":" + port + "/" + database
+	private val databaseUrl = "jdbc:mysql://" + settings.db_host + ":" + settings.db_port + "/" + settings.db_database
 	var connectionSource = new JdbcConnectionSource(databaseUrl)
-	connectionSource.setUsername(username)
-	connectionSource.setPassword(password)
+	connectionSource.setUsername(settings.db_username)
+	connectionSource.setPassword(settings.db_password)
 
-	val dao: Dao[Plugin, String] = DaoManager.createDao(connectionSource, classOf[Plugin])
+	val dao: Dao[Plugin, Int] = DaoManager.createDao(connectionSource, classOf[Plugin])
 	TableUtils.createTableIfNotExists(connectionSource, classOf[Plugin])
 
 	// Setup Http Server
-	Spark.port(8090)
-	secure("deploy/keystore.jks", "password", null, null);
-	get("/", (req, res) => "Hallo World")
+	port(8090)
 
-	get("/plugin/list", (req, res) => {
-		val plugins = dao.queryForAll()
-		val gson = new Gson()
-		gson.toJson(plugins)
-	})
+	private val externalPath = Paths.get(settings.download_folder).toAbsolutePath.toString
+	externalStaticFileLocation(externalPath)
+
+	secure("deploy/keystore.jks", settings.keystorePassword, null, null)
+
+	get("/plugins/:id", new PluginGet(dao), new JsonTransformer)
+	get("/plugins", new PluginList(dao), new JsonTransformer)
 
 	RouteOverview.enableRouteOverview()
+
+	SettingsHandler.saver.save(settings, settingsPath)
 }

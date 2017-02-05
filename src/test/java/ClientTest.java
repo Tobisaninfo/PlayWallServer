@@ -33,7 +33,7 @@ public class ClientTest {
 		HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 		HttpsURLConnection.setDefaultHostnameVerifier((hostname, sslSession) -> true);
 
-		URL url = new URL("https://localhost:6789");
+		URL url = new URL("https://localhost:8090/plugins");
 		URLConnection conn = url.openConnection();
 
 		InputStream stream = conn.getInputStream();
