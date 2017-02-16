@@ -16,7 +16,8 @@ class PropertiesSettingsHandler extends SettingsLoader with SettingsSaver {
 		properties.load(Files.newBufferedReader(path))
 
 		val settings = new Settings()
-		classOf[Settings].getDeclaredFields.filter(f => !Modifier.isTransient(f.getModifiers))
+		classOf[Settings].getDeclaredFields
+			.filter(f => !Modifier.isTransient(f.getModifiers))
 			.filter(f => properties.containsKey(f.getName))
 			.foreach(f => {
 				f.setAccessible(true)
@@ -33,9 +34,8 @@ class PropertiesSettingsHandler extends SettingsLoader with SettingsSaver {
 	override def save(settings: Settings, path: Path): Unit = {
 		val properties = new Properties()
 
-		println("Save")
-
-		classOf[Settings].getDeclaredFields.filter(f => !Modifier.isTransient(f.getModifiers))
+		classOf[Settings].getDeclaredFields
+			.filter(f => !Modifier.isTransient(f.getModifiers))
 			.foreach(f => {
 				f.setAccessible(true)
 				properties.setProperty(f.getName, f.get(settings).toString)

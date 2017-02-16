@@ -25,6 +25,7 @@ import scala.util.Random
 	}
 
 	def getId: Int = id
+	def getAccount: Account = account
 }
 
 object Session {

@@ -33,13 +33,13 @@ class SessionPost(accountDao: Dao[Account, Int]) extends Route {
 	}
 
 	private class SessionPostResult {
-		var status: Status.Value = _
+		var status: String = _
 		var message: String = _
 		var key: String = _
 
 		def this(status: Status.Value, key: String, message: String = "") {
 			this()
-			this.status = status
+			this.status = status.toString
 			this.message = message
 			this.key = key
 		}

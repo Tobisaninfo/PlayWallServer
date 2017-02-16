@@ -21,4 +21,19 @@ import com.j256.ormlite.table.DatabaseTable
 	}
 
 	def getId: Int = id
+
+
+	def canEqual(other: Any): Boolean = other.isInstanceOf[Account]
+
+	override def equals(other: Any): Boolean = other match {
+		case that: Account =>
+			(that canEqual this) &&
+				id == that.id
+		case _ => false
+	}
+
+	override def hashCode(): Int = {
+		val state = Seq(id)
+		state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+	}
 }

@@ -5,12 +5,12 @@ package de.tobias.playpad.server.server
   */
 class Result {
 
-	var status: Status.Value = _
+	var status: String = _
 	var message: String = _
 
 	def this(status: Status.Value, message: String = "") {
 		this()
-		this.status = status
+		this.status = status.toString
 		this.message = message
 	}
 }

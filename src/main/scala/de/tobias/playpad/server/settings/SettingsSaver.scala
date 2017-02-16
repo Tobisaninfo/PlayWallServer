@@ -11,5 +11,5 @@ trait SettingsSaver {
 	@throws[IOException]
 	def save(settings: Settings, path: Path)
 
-	def default(path: Path) = save(new Settings(), path)
+	def default(path: Path): Unit = save(new Settings(), path)
 }
