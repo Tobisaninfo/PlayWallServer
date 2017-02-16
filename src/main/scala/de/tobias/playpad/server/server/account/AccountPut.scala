@@ -1,7 +1,10 @@
 package de.tobias.playpad.server.server.account
 
+import java.sql.SQLException
+
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account.Account
+import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
 
 /**
@@ -23,13 +26,14 @@ class AccountPut(accountDao: Dao[Account, Int]) extends Route {
 				if (account.password.equals(oldPassword)) {
 					account.password = newPassword
 					accountDao.update(account)
+					return new Result(Status.OK)
 				}
 			}
 		} catch {
-			case e: Exception => e.printStackTrace()
+			case e: SQLException => return new Result(Status.ERROR)
 		}
 
-		""
+		new Result(Status.ERROR)
 	}
 
 }

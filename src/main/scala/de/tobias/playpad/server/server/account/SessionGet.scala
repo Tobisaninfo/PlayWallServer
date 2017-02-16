@@ -2,7 +2,8 @@ package de.tobias.playpad.server.server.account
 
 import com.google.gson.{JsonArray, JsonObject}
 import com.j256.ormlite.dao.Dao
-import de.tobias.playpad.server.account.{Account, Session}
+import de.tobias.playpad.server.account.Account
+import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
 
 /**
@@ -31,7 +32,7 @@ class SessionGet(accountDao: Dao[Account, Int]) extends Route {
 			}
 		}
 
-		null
+		new Result(Status.ERROR)
 	}
 
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException
 
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account.Account
+import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route, Spark}
 
 /**
@@ -19,10 +20,10 @@ class AccountPost(accountDao: Dao[Account, Int]) extends Route {
 		try {
 			accountDao.create(account)
 		} catch {
-			case e: SQLException => Spark.halt(409, "username not allowed")
+			case e: SQLException => return new Result(Status.ERROR)
 		}
 
-		"created"
+		new Result(Status.OK, "created")
 	}
 
 }

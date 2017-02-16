@@ -2,6 +2,7 @@ package de.tobias.playpad.server.server.account
 
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account.{Account, Session}
+import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
 
 /**
@@ -24,11 +25,24 @@ class SessionPost(accountDao: Dao[Account, Int]) extends Route {
 
 				account.sessions.add(session)
 				accountDao.update(account)
-				return randomKey
+				return new SessionPostResult(Status.OK, randomKey)
 			}
 		}
 
-		null
+		new Result(Status.ERROR)
+	}
+
+	private class SessionPostResult {
+		var status: Status.Value = _
+		var message: String = _
+		var key: String = _
+
+		def this(status: Status.Value, key: String, message: String = "") {
+			this()
+			this.status = status
+			this.message = message
+			this.key = key
+		}
 	}
 
 }

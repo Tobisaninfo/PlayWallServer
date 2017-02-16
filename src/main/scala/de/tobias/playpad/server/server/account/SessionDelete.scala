@@ -1,7 +1,8 @@
 package de.tobias.playpad.server.server.account
 
 import com.j256.ormlite.dao.Dao
-import de.tobias.playpad.server.account.{Account, Session}
+import de.tobias.playpad.server.account.Account
+import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
 
 /**
@@ -21,11 +22,11 @@ class SessionDelete(accountDao: Dao[Account, Int]) extends Route {
 			if (account.password.equals(password)) {
 				account.sessions.removeIf(s => s.key.equals(key))
 				accountDao.update(account)
-				return "deleted"
+				return new Result(Status.OK, "deleted")
 			}
 		}
 
-		null
+		new Result(Status.ERROR)
 	}
 
 }
