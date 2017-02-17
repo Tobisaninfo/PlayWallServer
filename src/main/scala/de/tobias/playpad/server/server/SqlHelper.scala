@@ -39,6 +39,10 @@ object SqlHelper {
 			case value: Double =>
 				preparedStatement.setDouble(2, value)
 				preparedStatement.setDouble(3, value)
+			case value: UUID =>
+				preparedStatement.setString(2, value.toString)
+				preparedStatement.setString(3, value.toString)
+
 		}
 
 		preparedStatement
