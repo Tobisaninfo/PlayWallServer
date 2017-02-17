@@ -1,6 +1,6 @@
 package de.tobias.playpad.server.transformer
 
-import com.google.gson.Gson
+import com.google.gson.{Gson, JsonObject}
 import spark.ResponseTransformer
 
 /**
@@ -11,6 +11,10 @@ class JsonTransformer extends ResponseTransformer {
 	val gson = new Gson()
 
 	override def render(o: scala.Any): String = {
-		gson.toJson(o)
+		if (!o.isInstanceOf[JsonObject]) {
+			gson.toJson(o)
+		} else {
+			o.toString
+		}
 	}
 }

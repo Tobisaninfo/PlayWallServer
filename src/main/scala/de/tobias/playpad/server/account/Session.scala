@@ -26,6 +26,22 @@ import scala.util.Random
 
 	def getId: Int = id
 	def getAccount: Account = account
+
+
+	def canEqual(other: Any): Boolean = other.isInstanceOf[Session]
+
+	override def equals(other: Any): Boolean = other match {
+		case that: Session =>
+			(that canEqual this) &&
+				id == that.id &&
+				key == that.key
+		case _ => false
+	}
+
+	override def hashCode(): Int = {
+		val state = Seq(id, key)
+		state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+	}
 }
 
 object Session {

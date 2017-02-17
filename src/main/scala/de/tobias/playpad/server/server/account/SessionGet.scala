@@ -28,7 +28,7 @@ class SessionGet(accountDao: Dao[Account, Int]) extends Route {
 					jsonObj.addProperty("createDate", session.createDate.getTime)
 					array.add(jsonObj)
 				})
-				return array.toString
+				return array
 			}
 		}
 
