@@ -1,14 +1,13 @@
 package de.tobias.playpad.server.project.saver.json
 
 import com.google.gson.{JsonArray, JsonElement, JsonObject}
-import de.tobias.playpad.server.project.JsonDef._
 import de.tobias.playpad.server.project.Page
+import de.tobias.playpad.server.project.utils.JsonDef._
 
 /**
   * Created by tobias on 17.02.17.
   */
 class PageSaver {
-
 	def save(page: Page): JsonElement = {
 		val jsonObject = new JsonObject()
 

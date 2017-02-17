@@ -3,29 +3,30 @@ package de.tobias.playpad.server.project.loader.sql
 import java.sql.Connection
 import java.util.UUID
 
-import de.tobias.playpad.server.project.Page
+import de.tobias.playpad.server.project.utils.SqlDef._
+import de.tobias.playpad.server.project.{Page, Project}
 
 /**
   * Created by tobias on 17.02.17.
   */
 class PageLoader {
-
-	def load(connection: Connection, projectId: UUID): List[Page] = {
-		val sql = "SELECT * FROM Page WHERE project_id = ?"
+	def load(connection: Connection, project: Project): List[Page] = {
+		val sql = s"SELECT * FROM $PAGE WHERE $PAGE_PROJECT_REF = ?"
 		val preparedStatement = connection.prepareStatement(sql)
-		preparedStatement.setString(1, projectId.toString)
+		preparedStatement.setString(1, project.id.toString)
 		val result = preparedStatement.executeQuery()
 
 		var pages: List[Page] = List()
 
 		while (result.next()) {
 			val page = new Page()
-			page.id = UUID.fromString(result.getString("id"))
-			page.name = result.getString("name")
+			page.id = UUID.fromString(result.getString(PAGE_ID))
+			page.name = result.getString(PAGE_NAME)
 
 			val padLoader = new PadLoader()
-			page.pads = padLoader.load(connection, page.id)
+			page.pads = padLoader.load(connection, page)
 
+			page.project = project
 			pages = page :: pages
 		}
 
