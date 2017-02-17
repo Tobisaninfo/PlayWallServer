@@ -1,16 +1,18 @@
 package de.tobias.playpad.server
 
 import java.nio.file.{Files, Paths}
-import java.sql.{Driver, DriverManager}
+import java.sql.DriverManager
+import java.util.UUID
 
 import com.j256.ormlite.dao.{Dao, DaoManager}
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.table.TableUtils
 import de.tobias.playpad.server.account.{Account, Session}
 import de.tobias.playpad.server.plugin.Plugin
+import de.tobias.playpad.server.project.{Design, Pad, Page, Project}
 import de.tobias.playpad.server.server.account._
 import de.tobias.playpad.server.server.plugin.{PluginGet, PluginList}
-import de.tobias.playpad.server.server.project.ProjectHandler
+import de.tobias.playpad.server.server.project.{ProjectGet, ProjectHandler}
 import de.tobias.playpad.server.settings.SettingsHandler
 import de.tobias.playpad.server.transformer.JsonTransformer
 import spark.Spark._
@@ -31,7 +33,7 @@ object PlayPadServer extends App {
 
 	private val settings = settingsLoader.load(settingsPath)
 
-	private val databaseUrl = "jdbc:mysql://" + settings.db_host + ":" + settings.db_port + "/" + settings.db_database + "?autoReconnect=true"
+	private val databaseUrl = "jdbc:mysql://" + settings.db_host + ":" + settings.db_port + "/" + settings.db_database + "?autoReconnect=true&wait_timeout=24"
 	var connectionSource = new JdbcConnectionSource(databaseUrl)
 	connectionSource.setUsername(settings.db_username)
 	connectionSource.setPassword(settings.db_password)
@@ -42,10 +44,10 @@ object PlayPadServer extends App {
 	val accountDao: Dao[Account, Int] = DaoManager.createDao(connectionSource, classOf[Account])
 	val sessionDao: Dao[Session, Int] = DaoManager.createDao(connectionSource, classOf[Session])
 
+	// Management Tables
 	TableUtils.createTableIfNotExists(connectionSource, classOf[Plugin])
 	TableUtils.createTableIfNotExists(connectionSource, classOf[Account])
 	TableUtils.createTableIfNotExists(connectionSource, classOf[Session])
-
 
 	// Setup Http Server
 	port(8090)
@@ -57,6 +59,9 @@ object PlayPadServer extends App {
 
 	// PlayWall Cloud
 	webSocket("/project", new ProjectHandler(sessionDao, databaseConnection))
+
+	// Project
+	get("/projects", new ProjectGet(databaseConnection, sessionDao), new JsonTransformer)
 
 	// Plugins
 	get("/plugins/:id", new PluginGet(pluginDao), new JsonTransformer)
