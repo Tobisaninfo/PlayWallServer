@@ -23,8 +23,7 @@ object SqlHelper {
 	}
 
 	private def createQuery[T](connection: Connection, table: String, field: String, value: T): PreparedStatement = {
-		val sql = "INSERT INTO " + table + " (id, " + field + ") VALUES(?, ?) " +
-			"ON DUPLICATE KEY UPDATE " + field + "=?"
+		val sql = "INSERT INTO %s (id, %s) VALUES(?, ?) ON DUPLICATE KEY UPDATE %s=?".format(table, field, field)
 		val preparedStatement = connection.prepareStatement(sql)
 
 		value match {

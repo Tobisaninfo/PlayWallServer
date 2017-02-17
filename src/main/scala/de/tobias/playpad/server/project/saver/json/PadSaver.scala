@@ -1,4 +1,4 @@
-package de.tobias.playpad.server.project.server.json
+package de.tobias.playpad.server.project.saver.json
 
 import com.google.gson.{JsonElement, JsonObject}
 import de.tobias.playpad.server.project.Pad
