@@ -15,18 +15,20 @@ class SessionDelete(accountDao: Dao[Account, Int]) extends Route {
 		val password = request.queryParams("password")
 		val key = request.queryParams("key")
 
-		// check account
-		val accounts = accountDao.queryForEq("username", username)
-		if (accounts.size() == 1) {
-			val account = accounts.get(0)
-			if (account.password.equals(password)) {
-				account.sessions.removeIf(s => s.key.equals(key))
-				accountDao.update(account)
-				return new Result(Status.OK, "deleted")
-			}
-		}
+		val account = Account.getAccount(username, accountDao)
 
-		new Result(Status.ERROR)
+		account match {
+			case Some(a) =>
+				if (a.password.equals(password)) {
+					a.sessions.removeIf(s => s.key.equals(key))
+					accountDao.update(a)
+					return new Result(Status.OK, "deleted")
+				}
+				new Result(Status.ERROR, "Password invalid")
+			case None =>
+				new Result(Status.ERROR, "Account invalid")
+
+		}
 	}
 
 }

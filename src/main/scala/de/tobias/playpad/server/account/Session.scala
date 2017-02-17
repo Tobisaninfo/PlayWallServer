@@ -2,6 +2,7 @@ package de.tobias.playpad.server.account
 
 import java.sql.Date
 
+import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
 
@@ -49,4 +50,12 @@ object Session {
 
 	val alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	def generateKey(): String = (1 to length).map(_ => alpha(Random.nextInt.abs % alpha.length())).mkString
+
+	def getSession(sessionKey: String, sessionDao: Dao[Session, Int]): Option[Session] = {
+		val sessionList = sessionDao.queryForEq("key", sessionKey)
+		if (sessionList.size() == 1) {
+			return Some(sessionList.get(0))
+		}
+		None
+	}
 }

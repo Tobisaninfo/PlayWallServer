@@ -1,6 +1,6 @@
 package de.tobias.playpad.server.account
 
-import com.j256.ormlite.dao.ForeignCollection
+import com.j256.ormlite.dao.{Dao, ForeignCollection}
 import com.j256.ormlite.field.{DatabaseField, ForeignCollectionField}
 import com.j256.ormlite.table.DatabaseTable
 
@@ -36,4 +36,17 @@ import com.j256.ormlite.table.DatabaseTable
 		val state = Seq(id)
 		state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
 	}
+
 }
+
+object Account {
+	def getAccount(username: String, accountDao: Dao[Account, Int]): Option[Account] = {
+		val accountList = accountDao.queryForEq("username", username)
+		if (accountList.size() == 1) {
+			return Some(accountList.get(0))
+		}
+		None
+	}
+}
+
+

@@ -5,7 +5,7 @@ import java.util.UUID
 
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account.Session
-import de.tobias.playpad.server.project.loader.ProjectLoader
+import de.tobias.playpad.server.project.loader.sql.ProjectLoader
 import de.tobias.playpad.server.project.saver.json.ProjectSaver
 import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
@@ -19,21 +19,24 @@ class ProjectGet(connection: Connection, sessionDao: Dao[Session, Int]) extends 
 		val sessionKey = request.queryParams("session")
 		val projectId = request.queryParams("project")
 
-		val sessions = sessionDao.queryForEq("key", sessionKey)
-		if (sessions.size() == 1) {
-			val projectLoader = new ProjectLoader()
-			val projects = projectLoader.load(connection, UUID.fromString(projectId))
-			val session = sessions.get(0)
+		val session = Session.getSession(sessionKey, sessionDao)
 
-			if (projects.size == 1) {
-				val project = projects.head
-				if (project.accountId == session.getAccount.id) {
-					val projectSaver = new ProjectSaver()
-					return projectSaver.save(project)
+		session match {
+			case Some(s) =>
+				val projectLoader = new ProjectLoader()
+				val projects = projectLoader.load(connection, UUID.fromString(projectId))
+
+				if (projects.size == 1) {
+					val project = projects.head
+					if (project.accountId == s.getAccount.id) {
+						val projectSaver = new ProjectSaver()
+						return projectSaver.save(project)
+					}
 				}
-			}
+				new Result(Status.ERROR, "Project invalid")
+			case None =>
+				new Result(Status.ERROR, "Session invalid")
 		}
-		new Result(Status.ERROR, "Session invalid")
 	}
 
 }

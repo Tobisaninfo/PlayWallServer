@@ -14,22 +14,23 @@ class SessionPost(accountDao: Dao[Account, Int]) extends Route {
 		val username = request.queryParams("username")
 		val password = request.queryParams("password")
 
-		// check account
-		val accounts = accountDao.queryForEq("username", username)
-		if (accounts.size() == 1) {
-			val account = accounts.get(0)
-			if (account.password.equals(password)) {
+		val account = Account.getAccount(username, accountDao)
 
-				val randomKey = Session.generateKey()
-				val session = new Session(account, randomKey)
+		account match {
+			case Some(a) =>
+				if (a.password.equals(password)) {
 
-				account.sessions.add(session)
-				accountDao.update(account)
-				return new SessionPostResult(Status.OK, randomKey)
-			}
+					val randomKey = Session.generateKey()
+					val session = new Session(a, randomKey)
+
+					a.sessions.add(session)
+					accountDao.update(a)
+					return new SessionPostResult(Status.OK, randomKey)
+				}
+				new Result(Status.ERROR, "Password invalid")
+			case None =>
+				new Result(Status.ERROR, "Account invalid")
 		}
-
-		new Result(Status.ERROR)
 	}
 
 	private class SessionPostResult {

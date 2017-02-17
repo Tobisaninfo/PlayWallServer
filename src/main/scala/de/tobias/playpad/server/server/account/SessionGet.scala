@@ -15,24 +15,23 @@ class SessionGet(accountDao: Dao[Account, Int]) extends Route {
 		val username = request.queryParams("username")
 		val password = request.queryParams("password")
 
-		// check account
-		val accounts = accountDao.queryForEq("username", username)
-		if (accounts.size() == 1) {
-			val account = accounts.get(0)
-			if (account.password.equals(password)) {
+		val account = Account.getAccount(username, accountDao)
 
-				val array = new JsonArray
-				account.sessions.forEach(session => {
-					val jsonObj = new JsonObject
-					jsonObj.addProperty("key", session.key)
-					jsonObj.addProperty("createDate", session.createDate.getTime)
-					array.add(jsonObj)
-				})
-				return array
-			}
+		account match {
+			case Some(a) =>
+				if (a.password.equals(password)) {
+					val array = new JsonArray
+					a.sessions.forEach(session => {
+						val jsonObj = new JsonObject
+						jsonObj.addProperty("key", session.key)
+						jsonObj.addProperty("createDate", session.createDate.getTime)
+						array.add(jsonObj)
+					})
+					return array
+				}
+				new Result(Status.ERROR, "Password invalid")
+			case None =>
+				new Result(Status.ERROR, "Account invalid")
 		}
-
-		new Result(Status.ERROR)
 	}
-
 }

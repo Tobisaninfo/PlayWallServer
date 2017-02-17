@@ -19,15 +19,17 @@ class AccountPut(accountDao: Dao[Account, Int]) extends Route {
 			val oldPassword = request.queryMap().get("old_password").value
 			val newPassword = request.queryMap().get("new_password").value
 
-			val accounts = accountDao.queryForEq("username", username)
-
-			if (accounts.size() == 1) {
-				val account = accounts.get(0)
-				if (account.password.equals(oldPassword)) {
-					account.password = newPassword
-					accountDao.update(account)
-					return new Result(Status.OK)
-				}
+			val account = Account.getAccount(username, accountDao)
+			account match {
+				case Some(a) =>
+					if (a.password.equals(oldPassword)) {
+						a.password = newPassword
+						accountDao.update(a)
+						return new Result(Status.OK)
+					}
+					new Result(Status.ERROR, "Password invalid")
+				case None =>
+					new Result(Status.ERROR, "Account invalid")
 			}
 		} catch {
 			case e: SQLException => return new Result(Status.ERROR)
