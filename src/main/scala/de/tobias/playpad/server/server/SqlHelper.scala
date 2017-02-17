@@ -44,4 +44,43 @@ object SqlHelper {
 
 		preparedStatement
 	}
+
+	def createTables(connection: Connection): Unit = {
+		def createTable(sql: String) = {
+			val preparedStatement = connection.prepareStatement(sql)
+			preparedStatement.execute()
+			preparedStatement.close()
+		}
+
+		createTable(
+			"""CREATE TABLE `Project` (
+			  |  `id` varchar(48) NOT NULL DEFAULT '',
+			  |  `name` varchar(255) DEFAULT NULL,
+			  |  `account_id` int(11) DEFAULT NULL,
+			  |  PRIMARY KEY (`id`),
+			  |  UNIQUE KEY `id` (`id`)
+			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
+		createTable(
+			"""CREATE TABLE `Page` (
+			  |  `id` varchar(48) NOT NULL DEFAULT '',
+			  |  `name` varchar(255) DEFAULT NULL,
+			  |  `position` int(11) DEFAULT NULL,
+			  |  `project_id` varchar(48) DEFAULT NULL,
+			  |  PRIMARY KEY (`id`),
+			  |  UNIQUE KEY `id` (`id`)
+			  |  CONSTRAINT `Page_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`) ON DELETE CASCADE
+			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
+		createTable(
+			"""CREATE TABLE `Pad` (
+			  |  `id` varchar(48) NOT NULL DEFAULT '',
+			  |  `name` varchar(255) DEFAULT NULL,
+			  |  `position` int(11) DEFAULT NULL,
+			  |  `page` int(11) DEFAULT NULL,
+			  |  `design_id` varchar(48) DEFAULT NULL,
+			  |  `page_id` varchar(48) DEFAULT NULL,
+			  |  PRIMARY KEY (`id`),
+			  |  UNIQUE KEY `id` (`id`)
+			  |  CONSTRAINT `Pad_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `Page` (`id`) ON DELETE CASCADE
+			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
+	}
 }
