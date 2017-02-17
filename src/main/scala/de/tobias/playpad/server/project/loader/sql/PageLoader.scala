@@ -1,4 +1,4 @@
-package de.tobias.playpad.server.project.loader
+package de.tobias.playpad.server.project.loader.sql
 
 import java.sql.Connection
 import java.util.UUID

@@ -1,9 +1,9 @@
-package de.tobias.playpad.server.project.loader
+package de.tobias.playpad.server.project.loader.sql
 
 import java.sql.Connection
 import java.util.UUID
 
-import de.tobias.playpad.server.project.{Pad, Page}
+import de.tobias.playpad.server.project.Pad
 
 /**
   * Created by tobias on 17.02.17.

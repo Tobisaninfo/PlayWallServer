@@ -1,6 +1,7 @@
 package de.tobias.playpad.server.project.saver.json
 
 import com.google.gson.{JsonArray, JsonElement, JsonObject}
+import de.tobias.playpad.server.project.JsonDef._
 import de.tobias.playpad.server.project.Page
 
 /**
@@ -15,9 +16,10 @@ class PageSaver {
 		val padArray = new JsonArray()
 		page.pads.foreach(pad => padArray.add(padSaver.save(pad)))
 
-		jsonObject.addProperty("name", page.name)
-		jsonObject.addProperty("position", page.position)
-		jsonObject.add("pads", padArray)
+		jsonObject.addProperty(PAGE_ID, page.id.toString)
+		jsonObject.addProperty(PAGE_NAME, page.name)
+		jsonObject.addProperty(PAGE_POSITION, page.position)
+		jsonObject.add(PAGE_PADS, padArray)
 
 		jsonObject
 	}

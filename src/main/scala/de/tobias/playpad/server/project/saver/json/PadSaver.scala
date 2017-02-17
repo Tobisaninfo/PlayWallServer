@@ -1,6 +1,7 @@
 package de.tobias.playpad.server.project.saver.json
 
 import com.google.gson.{JsonElement, JsonObject}
+import de.tobias.playpad.server.project.JsonDef._
 import de.tobias.playpad.server.project.Pad
 
 /**
@@ -11,10 +12,10 @@ class PadSaver {
 	def save(pad: Pad): JsonElement = {
 		val jsonObject = new JsonObject()
 
-		jsonObject.addProperty("id", pad.id.toString)
-		jsonObject.addProperty("name", pad.name)
-		jsonObject.addProperty("position", pad.position)
-		jsonObject.addProperty("page", pad.pageIndex)
+		jsonObject.addProperty(PAD_ID, pad.id.toString)
+		jsonObject.addProperty(PAD_NAME, pad.name)
+		jsonObject.addProperty(PAD_POSITION, pad.position)
+		jsonObject.addProperty(PAD_PAGE, pad.pageIndex)
 
 		jsonObject
 	}
