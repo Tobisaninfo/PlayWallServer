@@ -12,7 +12,7 @@ import de.tobias.playpad.server.plugin.Plugin
 import de.tobias.playpad.server.project.{Design, Pad, Page, Project}
 import de.tobias.playpad.server.server.account._
 import de.tobias.playpad.server.server.plugin.{PluginGet, PluginList}
-import de.tobias.playpad.server.server.project.{ProjectGet, ProjectHandler}
+import de.tobias.playpad.server.server.project._
 import de.tobias.playpad.server.settings.SettingsHandler
 import de.tobias.playpad.server.transformer.JsonTransformer
 import spark.Spark._
@@ -62,6 +62,8 @@ object PlayPadServer extends App {
 
 	// Project
 	get("/projects", new ProjectGet(databaseConnection, sessionDao), new JsonTransformer)
+	post("/projects", new ProjectPost(databaseConnection, sessionDao), new JsonTransformer)
+	delete("/projects", new ProjectDelete(databaseConnection, sessionDao), new JsonTransformer)
 
 	// Plugins
 	get("/plugins/:id", new PluginGet(pluginDao), new JsonTransformer)

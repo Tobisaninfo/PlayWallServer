@@ -1,6 +1,7 @@
 package de.tobias.playpad.server.project.saver.sql
 
 import java.sql.Connection
+import java.util.UUID
 
 import de.tobias.playpad.server.project.Project
 import de.tobias.playpad.server.project.utils.SqlDef._
@@ -16,5 +17,8 @@ class ProjectSaver {
 
 		val pageSaver = new PageSaver
 		project.pages.foreach(pageSaver.save(connection, _))
+	}
+	def delete(connection: Connection, project: UUID): Unit = {
+		SqlHelper.delete(connection, PROJECT, project)
 	}
 }

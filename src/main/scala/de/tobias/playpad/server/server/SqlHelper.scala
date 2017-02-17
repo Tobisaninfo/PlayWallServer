@@ -23,7 +23,7 @@ object SqlHelper {
 	}
 
 	private def createQuery[T](connection: Connection, table: String, field: String, value: T): PreparedStatement = {
-		val sql = "INSERT INTO %s (id, %s) VALUES(?, ?) ON DUPLICATE KEY UPDATE %s=?".format(table, field, field)
+		val sql = s"INSERT INTO $table (id, $field) VALUES(?, ?) ON DUPLICATE KEY UPDATE $field=?"
 		val preparedStatement = connection.prepareStatement(sql)
 
 		value match {
@@ -46,6 +46,22 @@ object SqlHelper {
 		}
 
 		preparedStatement
+	}
+
+	def delete(connection: Connection, table: String, id: Int): Unit = {
+		val sql = s"DELETE FROM $table WHERE id = ?"
+		val preparedStatement = connection.prepareStatement(sql)
+		preparedStatement.setInt(1, id)
+		preparedStatement.execute()
+		preparedStatement.close()
+	}
+
+	def delete(connection: Connection, table: String, uuid: UUID): Unit = {
+		val sql = s"DELETE FROM $table WHERE id = ?"
+		val preparedStatement = connection.prepareStatement(sql)
+		preparedStatement.setString(1, uuid.toString)
+		preparedStatement.execute()
+		preparedStatement.close()
 	}
 
 	def createTables(connection: Connection): Unit = {

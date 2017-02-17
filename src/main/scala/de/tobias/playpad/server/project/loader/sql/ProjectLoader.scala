@@ -35,4 +35,26 @@ class ProjectLoader {
 
 		projects
 	}
+
+	def getAccountId(connection: Connection, id: UUID): Int = {
+		val sql = s"SELECT account_id FROM $PROJECT WHERE $PROJECT_ID = ?"
+
+		val preparedStatement = connection.prepareStatement(sql)
+		preparedStatement.setString(1, id.toString)
+		val result = preparedStatement.executeQuery()
+
+		while (result.next()) {
+			val account_id = result.getInt(PROJECT_ACCOUNT_ID)
+
+			result.close()
+			preparedStatement.close()
+
+			return account_id
+		}
+
+		result.close()
+		preparedStatement.close()
+
+		-1
+	}
 }
