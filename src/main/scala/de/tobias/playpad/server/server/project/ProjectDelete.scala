@@ -21,11 +21,12 @@ class ProjectDelete(connection: Connection, sessionDao: Dao[Session, Int]) exten
 			case Some(s) =>
 				val projectId = UUID.fromString(request.queryParams("project"))
 
-				val projectLoader = new ProjectLoader
-				val account_id = projectLoader.getAccountId(connection, projectId)
+				val projectLoader = new ProjectLoader(connection)
+				val account_id = projectLoader.getAccountId(projectId)
+
 				if (account_id == s.getAccount.id) {
-					val projectSaver = new ProjectSaver
-					projectSaver.delete(connection, projectId)
+					val projectSaver = new ProjectSaver(connection)
+					projectSaver.delete(projectId)
 
 					return new Result(Status.OK, "added project")
 				}

@@ -9,8 +9,8 @@ import de.tobias.playpad.server.project.utils.SqlDef._
 /**
   * Created by tobias on 17.02.17.
   */
-class ProjectLoader {
-	def load(connection: Connection, id: UUID): List[Project] = {
+class ProjectLoader(val connection: Connection) {
+	def load(id: UUID): List[Project] = {
 		val sql = s"SELECT * FROM $PROJECT WHERE $PROJECT_ID = ?"
 		val preparedStatement = connection.prepareStatement(sql)
 		preparedStatement.setString(1, id.toString)
@@ -24,8 +24,8 @@ class ProjectLoader {
 			project.name = result.getString(PROJECT_NAME)
 			project.accountId = result.getInt(PROJECT_ACCOUNT_ID)
 
-			val pageLoader = new PageLoader()
-			project.pages = pageLoader.load(connection, project)
+			val pageLoader = new PageLoader(connection)
+			project.pages = pageLoader.load(project)
 
 			projects = project :: projects
 		}
@@ -36,7 +36,7 @@ class ProjectLoader {
 		projects
 	}
 
-	def getAccountId(connection: Connection, id: UUID): Int = {
+	def getAccountId(id: UUID): Int = {
 		val sql = s"SELECT account_id FROM $PROJECT WHERE $PROJECT_ID = ?"
 
 		val preparedStatement = connection.prepareStatement(sql)

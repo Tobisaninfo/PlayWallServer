@@ -2,14 +2,12 @@ package de.tobias.playpad.server
 
 import java.nio.file.{Files, Paths}
 import java.sql.DriverManager
-import java.util.UUID
 
 import com.j256.ormlite.dao.{Dao, DaoManager}
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.table.TableUtils
 import de.tobias.playpad.server.account.{Account, Session}
 import de.tobias.playpad.server.plugin.Plugin
-import de.tobias.playpad.server.project.{Design, Pad, Page, Project}
 import de.tobias.playpad.server.server.account._
 import de.tobias.playpad.server.server.plugin.{PluginGet, PluginList}
 import de.tobias.playpad.server.server.project._
@@ -33,7 +31,7 @@ object PlayPadServer extends App {
 
 	private val settings = settingsLoader.load(settingsPath)
 
-	private val databaseUrl = "jdbc:mysql://" + settings.db_host + ":" + settings.db_port + "/" + settings.db_database + "?autoReconnect=true&wait_timeout=24"
+	private val databaseUrl = s"jdbc:mysql://${settings.db_host}:${settings.db_port}/${settings.db_database}?autoReconnect=true&wait_timeout=24"
 	var connectionSource = new JdbcConnectionSource(databaseUrl)
 	connectionSource.setUsername(settings.db_username)
 	connectionSource.setPassword(settings.db_password)
@@ -80,7 +78,7 @@ object PlayPadServer extends App {
 	// DEBUG
 	exception(classOf[Exception], (exception, _, _) => {
 		exception.printStackTrace()
-		halt(500, "internal error: " + exception.getLocalizedMessage)
+		halt(500, s"internal error: ${exception.getLocalizedMessage}")
 	})
 
 	RouteOverview.enableRouteOverview()

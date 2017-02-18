@@ -23,8 +23,8 @@ class ProjectGet(connection: Connection, sessionDao: Dao[Session, Int]) extends 
 
 		session match {
 			case Some(s) =>
-				val projectLoader = new ProjectLoader()
-				val projects = projectLoader.load(connection, UUID.fromString(projectId))
+				val projectLoader = new ProjectLoader(connection)
+				val projects = projectLoader.load(UUID.fromString(projectId))
 
 				if (projects.size == 1) {
 					val project = projects.head

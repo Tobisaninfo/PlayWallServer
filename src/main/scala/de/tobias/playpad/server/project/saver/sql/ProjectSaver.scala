@@ -10,15 +10,15 @@ import de.tobias.playpad.server.server.SqlHelper
 /**
   * Created by tobias on 17.02.17.
   */
-class ProjectSaver {
-	def save(connection: Connection, project: Project): Unit = {
+class ProjectSaver(val connection: Connection) {
+	def save(project: Project): Unit = {
 		SqlHelper.insertOrUpdate(connection, PROJECT, project.id, PROJECT_NAME, project.name)
 		SqlHelper.insertOrUpdate(connection, PROJECT, project.id, PROJECT_ACCOUNT_ID, project.accountId)
 
-		val pageSaver = new PageSaver
-		project.pages.foreach(pageSaver.save(connection, _))
+		val pageSaver = new PageSaver(connection)
+		project.pages.foreach(pageSaver.save)
 	}
-	def delete(connection: Connection, project: UUID): Unit = {
+	def delete(project: UUID): Unit = {
 		SqlHelper.delete(connection, PROJECT, project)
 	}
 }

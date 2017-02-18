@@ -9,8 +9,8 @@ import de.tobias.playpad.server.project.{Pad, Page}
 /**
   * Created by tobias on 17.02.17.
   */
-class PadLoader {
-	def load(connection: Connection, page: Page): List[Pad] = {
+class PadLoader(val connection: Connection) {
+	def load(page: Page): List[Pad] = {
 		val sql = s"SELECT * FROM $PAD WHERE $PAD_PAGE_REF = ?"
 		val preparedStatement = connection.prepareStatement(sql)
 		preparedStatement.setString(1, page.toString)
