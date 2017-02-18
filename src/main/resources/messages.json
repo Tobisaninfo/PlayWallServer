@@ -1,0 +1,31 @@
+Simple Property {
+	class name
+	object id
+
+	field name
+	field value
+	field type
+
+	operation = update
+}
+
+Collection Add {
+	class name parent
+	class name child
+
+	object id parent
+	object id child
+
+	data [
+		field name
+		field value
+		field type
+	]
+
+	operation add
+}
+
+Collection Remove {
+	class name child
+	object id child
+}
