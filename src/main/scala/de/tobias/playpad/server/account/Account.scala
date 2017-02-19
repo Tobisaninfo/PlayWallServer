@@ -22,7 +22,6 @@ import com.j256.ormlite.table.DatabaseTable
 
 	def getId: Int = id
 
-
 	def canEqual(other: Any): Boolean = other.isInstanceOf[Account]
 
 	override def equals(other: Any): Boolean = other match {

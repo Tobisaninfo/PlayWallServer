@@ -11,6 +11,7 @@ import de.tobias.playpad.server.plugin.Plugin
 import de.tobias.playpad.server.server.account._
 import de.tobias.playpad.server.server.plugin.{PluginGet, PluginList}
 import de.tobias.playpad.server.server.project._
+import de.tobias.playpad.server.server.project.sync.ProjectSyncHandler
 import de.tobias.playpad.server.settings.SettingsHandler
 import de.tobias.playpad.server.transformer.JsonTransformer
 import spark.Spark._
@@ -56,7 +57,7 @@ object PlayPadServer extends App {
 	secure("deploy/keystore.jks", settings.keystorePassword, null, null)
 
 	// PlayWall Cloud
-	webSocket("/project", new ProjectHandler(sessionDao, databaseConnection))
+	webSocket("/project", new ProjectSyncHandler(sessionDao, databaseConnection))
 
 	// Project
 	get("/projects", new ProjectGet(databaseConnection, sessionDao), new JsonTransformer)
