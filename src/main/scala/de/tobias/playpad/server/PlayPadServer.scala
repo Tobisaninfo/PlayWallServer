@@ -60,7 +60,8 @@ object PlayPadServer extends App {
 	webSocket("/project", new ProjectSyncHandler(sessionDao, databaseConnection))
 
 	// Project
-	get("/projects", new ProjectGet(databaseConnection, sessionDao), new JsonTransformer)
+	get("/projects/:id", new ProjectGet(databaseConnection, sessionDao), new JsonTransformer)
+	get("/projects", new ProjectList(databaseConnection, sessionDao), new JsonTransformer)
 	post("/projects", new ProjectPost(databaseConnection, sessionDao), new JsonTransformer)
 	delete("/projects", new ProjectDelete(databaseConnection, sessionDao), new JsonTransformer)
 
