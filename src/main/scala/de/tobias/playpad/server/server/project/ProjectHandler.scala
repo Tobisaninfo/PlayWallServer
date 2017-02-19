@@ -15,6 +15,7 @@ import scala.collection.{Map, mutable}
 /**
   * Created by tobias on 13.02.17.
   */
+@Deprecated
 @WebSocket class ProjectHandler(sessionDao: Dao[account.Session, Int], connection: Connection) {
 
 	// TODO mutable.HashSet --> Set

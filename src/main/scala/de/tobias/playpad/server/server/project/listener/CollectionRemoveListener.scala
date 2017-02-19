@@ -8,6 +8,7 @@ import de.tobias.playpad.server.server.SqlHelper
 /**
   * Created by tobias on 18.02.17.
   */
+@Deprecated
 class CollectionRemoveListener extends Listener {
 	override def onChange(json: JsonObject, connection: Connection): Unit = {
 		val childClass = json.get("child_class").getAsString
