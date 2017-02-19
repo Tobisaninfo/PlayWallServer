@@ -6,7 +6,7 @@ import com.google.gson.{JsonObject, JsonParser}
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account
 import de.tobias.playpad.server.account.Account
-import de.tobias.playpad.server.server.project.sync.listener.project.ProjectAddListener
+import de.tobias.playpad.server.server.project.sync.listener.project.{ProjectAddListener, ProjectUpdateListener}
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.{OnWebSocketClose, OnWebSocketConnect, OnWebSocketMessage, WebSocket}
 
@@ -21,7 +21,8 @@ import scala.collection.{Map, mutable}
 	private var sessions: Map[Account, mutable.HashSet[Session]] = new mutable.HashMap[Account, mutable.HashSet[Session]]()
 
 	private val listeners = Map(
-		"pro-add" -> new ProjectAddListener()
+		"pro-add" -> new ProjectAddListener(),
+		"pro-update" -> new ProjectUpdateListener()
 	)
 
 	@OnWebSocketConnect def onConnect(serverSession: Session): Unit = {
