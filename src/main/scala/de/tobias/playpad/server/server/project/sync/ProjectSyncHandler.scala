@@ -6,6 +6,7 @@ import com.google.gson.{JsonObject, JsonParser}
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account
 import de.tobias.playpad.server.account.Account
+import de.tobias.playpad.server.server.project.sync.listener.page.{PageAddListener, PageRemoveListener, PageUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.project.{ProjectAddListener, ProjectRemoveListener, ProjectUpdateListener}
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.{OnWebSocketClose, OnWebSocketConnect, OnWebSocketMessage, WebSocket}
@@ -25,7 +26,11 @@ import scala.collection.{Map, mutable}
 	private val listeners = Map(
 		"pro-add" -> new ProjectAddListener(),
 		"pro-update" -> new ProjectUpdateListener(),
-		"pro-rm" -> new ProjectRemoveListener()
+		"pro-rm" -> new ProjectRemoveListener(),
+
+		"page-add" -> new PageAddListener(),
+		"page-update" -> new PageUpdateListener(),
+		"page-rm" -> new PageRemoveListener()
 	)
 
 	@OnWebSocketConnect def onConnect(serverSession: Session): Unit = {
