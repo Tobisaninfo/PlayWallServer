@@ -1,4 +1,4 @@
-package de.tobias.playpad.server.server.project.sync.listener.page
+package de.tobias.playpad.server.server.project.sync.listener.pad
 
 import java.sql.Connection
 import java.util.UUID
@@ -12,10 +12,10 @@ import de.tobias.playpad.server.server.project.sync.listener.Listener
 /**
   * Created by tobias on 19.02.17.
   */
-class PageRemoveListener extends Listener {
+class PadRemoveListener extends Listener {
 	override def onChange(json: JsonObject, connection: Connection, session: Session): Unit = {
-		val pageId = UUID.fromString(json.get("id").getAsString)
+		val padId = UUID.fromString(json.get("id").getAsString)
 
-		SqlHelper.delete(connection, SqlDef.PAGE, pageId)
+		SqlHelper.delete(connection, SqlDef.PAD, padId)
 	}
 }

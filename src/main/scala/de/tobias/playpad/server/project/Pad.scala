@@ -9,9 +9,7 @@ class Pad() {
 
 	var id: UUID = UUID.randomUUID()
 	var name: String = _
-
 	var position: Int = _
-	var pageIndex: Int = _
 
 	var paths: List[Path] = List()
 

@@ -22,7 +22,7 @@ class PathLoader {
 			path.path = json.get(PATH_PATH).getAsString
 			path.pad = pad
 
-			pad
+			path
 		}).toList
 		paths
 	}
