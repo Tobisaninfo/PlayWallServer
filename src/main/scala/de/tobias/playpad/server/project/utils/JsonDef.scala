@@ -18,5 +18,9 @@ object JsonDef {
 	val PAD_NAME = "name"
 	val PAD_POSITION = "position"
 	val PAD_PAGE = "page"
+	val PAD_PATHS = "paths"
+
+	val PATH_ID = "id"
+	val PATH_PATH = "name"
 
 }

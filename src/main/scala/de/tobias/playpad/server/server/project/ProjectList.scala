@@ -1,13 +1,11 @@
 package de.tobias.playpad.server.server.project
 
 import java.sql.Connection
-import java.util.UUID
 
 import com.google.gson.{JsonArray, JsonObject}
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account.Session
 import de.tobias.playpad.server.project.loader.sql.ProjectLoader
-import de.tobias.playpad.server.project.saver.json.ProjectSaver
 import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
 

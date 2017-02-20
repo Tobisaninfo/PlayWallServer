@@ -13,7 +13,7 @@ class PadLoader(val connection: Connection) {
 	def load(page: Page): List[Pad] = {
 		val sql = s"SELECT * FROM $PAD WHERE $PAD_PAGE_REF = ?"
 		val preparedStatement = connection.prepareStatement(sql)
-		preparedStatement.setString(1, page.toString)
+		preparedStatement.setString(1, page.id.toString)
 		val result = preparedStatement.executeQuery()
 
 		var pads: List[Pad] = List()
@@ -24,6 +24,9 @@ class PadLoader(val connection: Connection) {
 			pad.name = result.getString(PAD_NAME)
 			pad.position = result.getInt(PAD_POSITION)
 			pad.pageIndex = result.getInt(PAD_PAGE)
+
+			val pathLoader = new PathLoader(connection)
+			pad.paths = pathLoader.load(pad))
 
 			pad.page = page
 			pads = pad :: pads

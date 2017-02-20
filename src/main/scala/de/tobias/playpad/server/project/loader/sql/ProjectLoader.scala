@@ -3,8 +3,8 @@ package de.tobias.playpad.server.project.loader.sql
 import java.sql.Connection
 import java.util.UUID
 
-import de.tobias.playpad.server.project.{Project, ProjectReference}
 import de.tobias.playpad.server.project.utils.SqlDef._
+import de.tobias.playpad.server.project.{Project, ProjectReference}
 
 /**
   * Created by tobias on 17.02.17.

@@ -13,5 +13,7 @@ class Pad() {
 	var position: Int = _
 	var pageIndex: Int = _
 
+	var paths: List[Path] = List()
+
 	var page: Page = _
 }

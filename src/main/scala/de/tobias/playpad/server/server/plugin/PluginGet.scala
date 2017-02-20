@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.plugin.Plugin
 import de.tobias.playpad.server.server.{Result, Status}
-import spark.{Request, Response, Route, Spark}
+import spark.{Request, Response, Route}
 
 /**
   * Created by tobias on 05.02.17.

@@ -101,5 +101,14 @@ object SqlHelper {
 			  |  UNIQUE KEY `id` (`id`)
 			  |  CONSTRAINT `Pad_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `Page` (`id`) ON DELETE CASCADE
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
+		createTable(
+			"""CREATE TABLE `Path` (
+			  |  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+			  |  `path` text,
+			  |  `pad_id` varchar(40) DEFAULT NULL,
+			  |  PRIMARY KEY (`id`),
+			  |  KEY `pad_id` (`pad_id`),
+			  |  CONSTRAINT `Path_ibfk_1` FOREIGN KEY (`pad_id`) REFERENCES `Pad` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 	}
 }

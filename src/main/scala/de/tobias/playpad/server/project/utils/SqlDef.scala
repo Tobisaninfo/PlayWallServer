@@ -23,4 +23,9 @@ object SqlDef {
 	val PAD_PAGE = "page"
 	val PAD_PAGE_REF = "page_id"
 
+	val PATH = "Path"
+	val PATH_ID = "id"
+	val PATH_NAME = "path"
+	val PATH_PAD = "pad_id"
+
 }
