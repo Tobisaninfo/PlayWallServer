@@ -11,6 +11,7 @@ class Pad() {
 	var name: String = _
 	var position: Int = _
 
+	var contentType: String = _
 	var paths: List[Path] = List()
 
 	var page: Page = _

@@ -8,6 +8,7 @@ import de.tobias.playpad.server.account
 import de.tobias.playpad.server.account.Account
 import de.tobias.playpad.server.server.project.sync.listener.pad.{PadAddListener, PadRemoveListener}
 import de.tobias.playpad.server.server.project.sync.listener.page.{PageAddListener, PageRemoveListener, PageUpdateListener}
+import de.tobias.playpad.server.server.project.sync.listener.path.PathAddListener
 import de.tobias.playpad.server.server.project.sync.listener.project.{ProjectAddListener, ProjectRemoveListener, ProjectUpdateListener}
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.{OnWebSocketClose, OnWebSocketConnect, OnWebSocketMessage, WebSocket}
@@ -34,8 +35,10 @@ import scala.collection.{Map, mutable}
 		"page-rm" -> new PageRemoveListener(),
 
 		"pad-add" -> new PadAddListener(),
-		//"page-update" -> new PageUpdateListener(),
-		"pad-rm" -> new PadRemoveListener()
+		//"pad-update" -> new PadUpdateListener(),
+		"pad-rm" -> new PadRemoveListener(),
+
+		"path-add" -> new PathAddListener()
 	)
 
 	@OnWebSocketConnect def onConnect(serverSession: Session): Unit = {
