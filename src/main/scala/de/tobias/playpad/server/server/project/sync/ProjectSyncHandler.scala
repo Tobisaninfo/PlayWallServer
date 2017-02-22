@@ -6,9 +6,9 @@ import com.google.gson.{JsonObject, JsonParser}
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account
 import de.tobias.playpad.server.account.Account
-import de.tobias.playpad.server.server.project.sync.listener.pad.{PadAddListener, PadRemoveListener}
+import de.tobias.playpad.server.server.project.sync.listener.pad.{PadAddListener, PadClearListener, PadUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.page.{PageAddListener, PageRemoveListener, PageUpdateListener}
-import de.tobias.playpad.server.server.project.sync.listener.path.PathAddListener
+import de.tobias.playpad.server.server.project.sync.listener.path.{PathAddListener, PathRemoveListener, PathUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.project.{ProjectAddListener, ProjectRemoveListener, ProjectUpdateListener}
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.{OnWebSocketClose, OnWebSocketConnect, OnWebSocketMessage, WebSocket}
@@ -35,10 +35,12 @@ import scala.collection.{Map, mutable}
 		"page-rm" -> new PageRemoveListener(),
 
 		"pad-add" -> new PadAddListener(),
-		//"pad-update" -> new PadUpdateListener(),
-		"pad-rm" -> new PadRemoveListener(),
+		"pad-update" -> new PadUpdateListener(),
+		"pad-clear" -> new PadClearListener(),
 
-		"path-add" -> new PathAddListener()
+		"path-add" -> new PathAddListener(),
+		"path-update" -> new PathUpdateListener(),
+		"path-rm" -> new PathRemoveListener()
 	)
 
 	@OnWebSocketConnect def onConnect(serverSession: Session): Unit = {
@@ -66,8 +68,7 @@ import scala.collection.{Map, mutable}
 
 		val session = account.Session.getSession(key, sessionDao)
 		session match {
-			case Some(s) =>
-				this.sessions(s.getAccount) -= serverSession
+			case Some(s) => this.sessions(s.getAccount) -= serverSession
 			case None => serverSession.close(500, "Invalid Key")
 		}
 	}

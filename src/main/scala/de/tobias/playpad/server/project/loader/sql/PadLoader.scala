@@ -23,6 +23,7 @@ class PadLoader(val connection: Connection) {
 			pad.id = UUID.fromString(result.getString(PAD_ID))
 			pad.name = result.getString(PAD_NAME)
 			pad.position = result.getInt(PAD_POSITION)
+			pad.contentType = result.getString(PAD_CONTENT_TYPE)
 
 			val pathLoader = new PathLoader(connection)
 			pad.paths = pathLoader.load(pad)

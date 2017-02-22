@@ -12,11 +12,10 @@ import de.tobias.playpad.server.server.project.sync.listener.Listener
 /**
   * Created by tobias on 19.02.17.
   */
-class PadAddListener extends Listener {
+class PadClearListener extends Listener {
 	override def onChange(json: JsonObject, connection: Connection, session: Session): Unit = {
-		val padId = UUID.fromString(json.get("id").getAsString)
+		val pageId = UUID.fromString(json.get("id").getAsString)
 
-		SqlHelper.insertOrUpdate(connection, SqlDef.PAD, padId, SqlDef.PAD_NAME, "")
-		SqlHelper.insertOrUpdate(connection, SqlDef.PAD, padId, SqlDef.PAD_CONTENT_TYPE, null)
+		SqlHelper.delete(connection, SqlDef.PAGE, pageId)
 	}
 }

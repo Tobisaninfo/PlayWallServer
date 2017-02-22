@@ -12,16 +12,16 @@ import de.tobias.playpad.server.server.project.sync.listener.Listener
 /**
   * Created by tobias on 19.02.17.
   */
-class PathAddListener extends Listener {
+class PathUpdateListener extends Listener {
 	override def onChange(json: JsonObject, connection: Connection, session: Session): Unit = {
 		val pathId = UUID.fromString(json.get("id").getAsString)
 		val padId = UUID.fromString(json.get("pad").getAsString)
+		val field = json.get("field").getAsString
 
 		SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_PAD, padId)
 
-		if (json.get("path") != null) {
-			val path = json.get("path").getAsString
-			SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_NAME, path)
+		field match {
+			case "path" => SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_NAME, json.get("value").getAsString)
 		}
 	}
 }

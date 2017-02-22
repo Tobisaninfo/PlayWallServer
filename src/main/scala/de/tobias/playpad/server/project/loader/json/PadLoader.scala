@@ -20,6 +20,8 @@ class PadLoader {
 			val pad = new Pad()
 			pad.id = UUID.fromString(json.get(PAD_ID).getAsString)
 			pad.name = json.get(PAD_NAME).getAsString
+			pad.position = json.get(PAD_POSITION).getAsInt
+			pad.name = json.get(PAD_CONTENT_TYPE).getAsString
 			pad.page = page
 
 			pad

@@ -20,6 +20,7 @@ object SqlDef {
 	val PAD_ID = "id"
 	val PAD_NAME = "name"
 	val PAD_POSITION = "position"
+	val PAD_CONTENT_TYPE = "content_type"
 	val PAD_PAGE_REF = "page_id"
 
 	val PATH = "Path"

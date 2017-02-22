@@ -1,5 +1,6 @@
 package de.tobias.playpad.server.server
 
+import java.sql.Types.NULL
 import java.sql.{Connection, PreparedStatement}
 import java.util.UUID
 
@@ -42,6 +43,9 @@ object SqlHelper {
 			case value: UUID =>
 				preparedStatement.setString(2, value.toString)
 				preparedStatement.setString(3, value.toString)
+			case null =>
+				preparedStatement.setNull(2, NULL)
+				preparedStatement.setNull(3, NULL)
 
 		}
 
@@ -103,7 +107,7 @@ object SqlHelper {
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 		createTable(
 			"""CREATE TABLE `Path` (
-			  |  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+			  |  `id` varchar(40) NOT NULL DEFAULT '',
 			  |  `path` text,
 			  |  `pad_id` varchar(40) DEFAULT NULL,
 			  |  PRIMARY KEY (`id`),

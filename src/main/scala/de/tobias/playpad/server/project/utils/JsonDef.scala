@@ -21,6 +21,6 @@ object JsonDef {
 	val PAD_PATHS = "paths"
 
 	val PATH_ID = "id"
-	val PATH_PATH = "name"
+	val PATH_PATH = "path"
 
 }

@@ -13,6 +13,7 @@ class PadSaver(val connection: Connection) {
 	def save(pad: Pad): Unit = {
 		SqlHelper.insertOrUpdate(connection, PAD, pad.id, PAD_NAME, pad.name)
 		SqlHelper.insertOrUpdate(connection, PAD, pad.id, PAD_POSITION, pad.position)
+		SqlHelper.insertOrUpdate(connection, PAD, pad.id, PAD_CONTENT_TYPE, pad.contentType)
 		SqlHelper.insertOrUpdate(connection, PAD, pad.id, PAD_PAGE_REF, pad.page.id)
 
 		val pathSaver = new PathSaver(connection)
