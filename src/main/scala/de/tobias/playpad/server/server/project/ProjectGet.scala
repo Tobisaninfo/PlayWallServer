@@ -17,7 +17,7 @@ class ProjectGet(connection: Connection, sessionDao: Dao[Session, Int]) extends 
 
 	override def handle(request: Request, response: Response): AnyRef = {
 		val sessionKey = request.queryParams("session")
-		val projectId = request.queryParams("project")
+		val projectId = request.params(":id")
 
 		val session = Session.getSession(sessionKey, sessionDao)
 
