@@ -17,11 +17,15 @@ class PadAddListener extends Listener {
 		val padId = UUID.fromString(json.get("id").getAsString)
 		val pageId = UUID.fromString(json.get("page").getAsString)
 		val padName = json.get("name").getAsString
-		val padPosition= json.get("position").getAsInt
+		val padPosition = json.get("position").getAsInt
 
 		SqlHelper.insertOrUpdate(connection, SqlDef.PAD, padId, SqlDef.PAD_PAGE_REF, pageId)
 		SqlHelper.insertOrUpdate(connection, SqlDef.PAD, padId, SqlDef.PAD_NAME, padName)
 		SqlHelper.insertOrUpdate(connection, SqlDef.PAD, padId, SqlDef.PAD_POSITION, padPosition)
-		SqlHelper.insertOrUpdate(connection, SqlDef.PAD, padId, SqlDef.PAD_CONTENT_TYPE, null)
+
+		if (!json.get("contentType").isJsonNull) {
+			val contentType = json.get("contentType").getAsString;
+			SqlHelper.insertOrUpdate(connection, SqlDef.PAD, padId, SqlDef.PAD_CONTENT_TYPE, contentType)
+		}
 	}
 }
