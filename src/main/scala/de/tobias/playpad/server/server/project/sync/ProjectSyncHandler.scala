@@ -88,7 +88,11 @@ import scala.collection.{Map, mutable}
 					case json: JsonObject =>
 						val session = account.Session.getSession(key, sessionDao)
 						session match {
-							case Some(s) => listeners(json.get("cmd").getAsString).onChange(json, connection, s)
+							case Some(s) =>
+								val cmd = json.get("cmd").getAsString
+								if (listeners.contains(cmd)) {
+									listeners(cmd).onChange(json, connection, s)
+								}
 							case None => serverSession.close(500, "Invalid Session")
 						}
 					case _ => serverSession.close(500, "Invalid Data")
