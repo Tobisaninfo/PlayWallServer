@@ -8,6 +8,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.table.TableUtils
 import de.tobias.playpad.server.account.{Account, Session}
 import de.tobias.playpad.server.plugin.Plugin
+import de.tobias.playpad.server.server.SqlHelper
 import de.tobias.playpad.server.server.account._
 import de.tobias.playpad.server.server.plugin.{PluginGet, PluginList}
 import de.tobias.playpad.server.server.project._
@@ -47,6 +48,7 @@ object PlayPadServer extends App {
 	TableUtils.createTableIfNotExists(connectionSource, classOf[Plugin])
 	TableUtils.createTableIfNotExists(connectionSource, classOf[Account])
 	TableUtils.createTableIfNotExists(connectionSource, classOf[Session])
+	SqlHelper.createTables(databaseConnection)
 
 	// Setup Http Server
 	port(8090)

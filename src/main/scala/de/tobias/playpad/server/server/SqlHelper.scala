@@ -76,7 +76,7 @@ object SqlHelper {
 		}
 
 		createTable(
-			"""CREATE TABLE `Project` (
+			"""CREATE TABLE IF NOT EXISTS `Project` (
 			  |  `id` varchar(48) NOT NULL DEFAULT '',
 			  |  `name` varchar(255) DEFAULT NULL,
 			  |  `account_id` int(11) DEFAULT NULL,
@@ -84,28 +84,28 @@ object SqlHelper {
 			  |  UNIQUE KEY `id` (`id`)
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 		createTable(
-			"""CREATE TABLE `Page` (
+			"""CREATE TABLE IF NOT EXISTS `Page` (
 			  |  `id` varchar(48) NOT NULL DEFAULT '',
 			  |  `name` varchar(255) DEFAULT NULL,
 			  |  `position` int(11) DEFAULT NULL,
 			  |  `project_id` varchar(48) DEFAULT NULL,
 			  |  PRIMARY KEY (`id`),
-			  |  UNIQUE KEY `id` (`id`)
+			  |  UNIQUE KEY `id` (`id`),
 			  |  CONSTRAINT `Page_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`) ON DELETE CASCADE
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 		createTable(
-			"""CREATE TABLE `Pad` (
+			"""CREATE TABLE IF NOT EXISTS `Pad` (
 			  |  `id` varchar(48) NOT NULL DEFAULT '',
 			  |  `name` varchar(255) DEFAULT NULL,
 			  |  `position` int(11) DEFAULT NULL,
 			  |  `page` int(11) DEFAULT NULL,
 			  |  `page_id` varchar(48) DEFAULT NULL,
 			  |  PRIMARY KEY (`id`),
-			  |  UNIQUE KEY `id` (`id`)
+			  |  UNIQUE KEY `id` (`id`),
 			  |  CONSTRAINT `Pad_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `Page` (`id`) ON DELETE CASCADE
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 		createTable(
-			"""CREATE TABLE `Path` (
+			"""CREATE TABLE IF NOT EXISTS `Path` (
 			  |  `id` varchar(40) NOT NULL DEFAULT '',
 			  |  `path` text,
 			  |  `pad_id` varchar(40) DEFAULT NULL,
@@ -114,7 +114,7 @@ object SqlHelper {
 			  |  CONSTRAINT `Path_ibfk_1` FOREIGN KEY (`pad_id`) REFERENCES `Pad` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 		createTable(
-			"""CREATE TABLE `Design` (
+			"""CREATE TABLE IF NOT EXISTS `Design` (
 			  |  `id` varchar(40) NOT NULL DEFAULT '',
 			  |  `background_color` varchar(20) DEFAULT NULL,
 			  |  `play_color` varchar(20) DEFAULT NULL,
