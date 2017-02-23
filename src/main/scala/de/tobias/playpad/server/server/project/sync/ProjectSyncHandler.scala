@@ -6,6 +6,7 @@ import com.google.gson.{JsonObject, JsonParser}
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account
 import de.tobias.playpad.server.account.Account
+import de.tobias.playpad.server.server.project.sync.listener.design.{DesignAddListener, DesignRemoveListener, DesignUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.pad.{PadAddListener, PadClearListener, PadRemoveListener, PadUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.page.{PageAddListener, PageRemoveListener, PageUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.path.{PathAddListener, PathRemoveListener, PathUpdateListener}
@@ -41,7 +42,11 @@ import scala.collection.{Map, mutable}
 
 		"path-add" -> new PathAddListener(),
 		"path-update" -> new PathUpdateListener(),
-		"path-rm" -> new PathRemoveListener()
+		"path-rm" -> new PathRemoveListener(),
+
+		"design-add" -> new DesignAddListener(),
+		"design-update" -> new DesignUpdateListener(),
+		"design-rm" -> new DesignRemoveListener()
 	)
 
 	@OnWebSocketConnect def onConnect(serverSession: Session): Unit = {
