@@ -15,11 +15,15 @@ class PadSaver {
 		val pathArray = new JsonArray()
 		pad.paths.foreach(path => pathArray.add(pathSaver.save(path)))
 
+		val designSaver = new DesignSaver
+		val designJson = designSaver.save(pad.design)
+
 		jsonObject.addProperty(PAD_ID, pad.id.toString)
 		jsonObject.addProperty(PAD_NAME, pad.name)
 		jsonObject.addProperty(PAD_POSITION, pad.position)
 		jsonObject.addProperty(PAD_CONTENT_TYPE, pad.contentType)
 		jsonObject.add(PAD_PATHS, pathArray)
+		jsonObject.add(PAD_DESIGN, designJson)
 
 		jsonObject
 	}

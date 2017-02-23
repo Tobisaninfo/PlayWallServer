@@ -18,7 +18,7 @@ class PathUpdateListener extends Listener {
 		val padId = UUID.fromString(json.get("pad").getAsString)
 		val field = json.get("field").getAsString
 
-		SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_PAD, padId)
+		SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_PAD_REF, padId)
 
 		field match {
 			case "path" => SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_NAME, json.get("value").getAsString)

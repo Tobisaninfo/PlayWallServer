@@ -28,6 +28,9 @@ class PadLoader(val connection: Connection) {
 			val pathLoader = new PathLoader(connection)
 			pad.paths = pathLoader.load(pad)
 
+			val designLoader = new DesignLoader(connection)
+			pad.design = designLoader.load(pad)
+
 			pad.page = page
 			pads = pad :: pads
 		}

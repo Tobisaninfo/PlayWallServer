@@ -99,7 +99,6 @@ object SqlHelper {
 			  |  `name` varchar(255) DEFAULT NULL,
 			  |  `position` int(11) DEFAULT NULL,
 			  |  `page` int(11) DEFAULT NULL,
-			  |  `design_id` varchar(48) DEFAULT NULL,
 			  |  `page_id` varchar(48) DEFAULT NULL,
 			  |  PRIMARY KEY (`id`),
 			  |  UNIQUE KEY `id` (`id`)
@@ -113,6 +112,16 @@ object SqlHelper {
 			  |  PRIMARY KEY (`id`),
 			  |  KEY `pad_id` (`pad_id`),
 			  |  CONSTRAINT `Path_ibfk_1` FOREIGN KEY (`pad_id`) REFERENCES `Pad` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
+		createTable(
+			"""CREATE TABLE `Design` (
+			  |  `id` varchar(40) NOT NULL DEFAULT '',
+			  |  `background_color` varchar(20) DEFAULT NULL,
+			  |  `play_color` varchar(20) DEFAULT NULL,
+			  |  `pad_id` varchar(40) DEFAULT NULL,
+			  |  PRIMARY KEY (`id`),
+			  |  KEY `pad_id` (`pad_id`),
+			  |  CONSTRAINT `Design_ibfk_1` FOREIGN KEY (`pad_id`) REFERENCES `Pad` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 	}
 }

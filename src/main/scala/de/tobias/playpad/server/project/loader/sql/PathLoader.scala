@@ -11,7 +11,7 @@ import de.tobias.playpad.server.project.{Pad, Path}
   */
 class PathLoader(val connection: Connection) {
 	def load(pad: Pad): List[Path] = {
-		val sql = s"SELECT * FROM $PATH WHERE $PATH_PAD = ?"
+		val sql = s"SELECT * FROM $PATH WHERE $PATH_PAD_REF = ?"
 		val preparedStatement = connection.prepareStatement(sql)
 		preparedStatement.setString(1, pad.id.toString)
 		val result = preparedStatement.executeQuery()

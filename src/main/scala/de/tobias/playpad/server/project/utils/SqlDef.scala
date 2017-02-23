@@ -26,6 +26,12 @@ object SqlDef {
 	val PATH = "Path"
 	val PATH_ID = "id"
 	val PATH_NAME = "path"
-	val PATH_PAD = "pad_id"
+	val PATH_PAD_REF = "pad_id"
+
+	val DESIGN = "Design"
+	val DESIGN_ID = "id"
+	val DESIGN_PAD_REF = "pad_id"
+	val DESIGN_BACKGROUND_COLOR = "background_color"
+	val DESIGN_PLAY_COLOR = "play_color"
 
 }

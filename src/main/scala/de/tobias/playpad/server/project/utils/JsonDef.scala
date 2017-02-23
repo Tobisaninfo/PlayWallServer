@@ -19,8 +19,13 @@ object JsonDef {
 	val PAD_POSITION = "position"
 	val PAD_CONTENT_TYPE = "contentType"
 	val PAD_PATHS = "paths"
+	val PAD_DESIGN = "design"
 
 	val PATH_ID = "id"
 	val PATH_PATH = "path"
+
+	val DESIGN_ID = "id"
+	val DESIGN_BACKGROUND_COLOR = "background_color"
+	val DESIGN_PLAY_COLOR = "play_color"
 
 }

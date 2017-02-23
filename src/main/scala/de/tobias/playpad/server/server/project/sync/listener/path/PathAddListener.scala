@@ -17,7 +17,7 @@ class PathAddListener extends Listener {
 		val pathId = UUID.fromString(json.get("id").getAsString)
 		val padId = UUID.fromString(json.get("pad").getAsString)
 
-		SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_PAD, padId)
+		SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_PAD_REF, padId)
 
 		if (json.get("path") != null) {
 			val path = json.get("path").getAsString

@@ -24,6 +24,14 @@ class PadLoader {
 			pad.name = json.get(PAD_CONTENT_TYPE).getAsString
 			pad.page = page
 
+			val pathLoader = new PathLoader
+			val pathJson = json.getAsJsonArray(PAD_PATHS)
+			pad.paths = pathLoader.load(pathJson, pad)
+
+			val designLoader = new DesignLoader
+			val designJson = json.getAsJsonObject(PAD_DESIGN)
+			pad.design = designLoader.load(designJson, pad)
+
 			pad
 		}).toList
 		pads
