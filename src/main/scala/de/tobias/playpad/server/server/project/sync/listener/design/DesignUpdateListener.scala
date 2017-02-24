@@ -15,7 +15,7 @@ import de.tobias.playpad.server.server.project.sync.listener.Listener
 class DesignUpdateListener extends Listener {
 	override def onChange(json: JsonObject, connection: Connection, session: Session): Unit = {
 		val designId = UUID.fromString(json.get("id").getAsString)
-		val padId = UUID.fromString(json.get("project").getAsString)
+		val padId = UUID.fromString(json.get("pad").getAsString)
 		val field = json.get("field").getAsString
 
 		SqlHelper.insertOrUpdate(connection, DESIGN, designId, DESIGN_PAD_REF, padId)

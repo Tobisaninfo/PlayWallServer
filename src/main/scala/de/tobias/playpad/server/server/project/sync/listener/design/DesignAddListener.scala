@@ -17,7 +17,7 @@ class DesignAddListener extends Listener {
 		val designId = UUID.fromString(json.get("id").getAsString)
 		val padId = UUID.fromString(json.get("pad").getAsString)
 		val backgroundColor = json.get("background_color").getAsString
-		val playColor = json.get("play_color").getAsInt
+		val playColor = json.get("play_color").getAsString
 
 		SqlHelper.insertOrUpdate(connection, SqlDef.DESIGN, designId, SqlDef.DESIGN_PAD_REF, padId)
 		SqlHelper.insertOrUpdate(connection, SqlDef.DESIGN, designId, SqlDef.DESIGN_BACKGROUND_COLOR, backgroundColor)
