@@ -52,6 +52,7 @@ object PlayPadServer extends App {
 
 	// Setup Http Server
 	port(8090)
+	threadPool(8, 2, 60 * 60 * 1000)
 
 	private val externalPath = Paths.get(settings.download_folder).toAbsolutePath.toString
 	externalStaticFileLocation(externalPath)
