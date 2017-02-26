@@ -24,7 +24,7 @@ class PadAddListener extends Listener {
 		SqlHelper.insertOrUpdate(connection, SqlDef.PAD, padId, SqlDef.PAD_POSITION, padPosition)
 
 		if (!json.get("contentType").isJsonNull) {
-			val contentType = json.get("contentType").getAsString;
+			val contentType = json.get("contentType").getAsString
 			SqlHelper.insertOrUpdate(connection, SqlDef.PAD, padId, SqlDef.PAD_CONTENT_TYPE, contentType)
 		}
 	}

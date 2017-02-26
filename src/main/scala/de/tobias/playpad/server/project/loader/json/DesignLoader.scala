@@ -3,8 +3,8 @@ package de.tobias.playpad.server.project.loader.json
 import java.util.UUID
 
 import com.google.gson.JsonObject
-import de.tobias.playpad.server.project.{Design, Pad}
 import de.tobias.playpad.server.project.utils.JsonDef
+import de.tobias.playpad.server.project.{Design, Pad}
 
 /**
   * Created by tobias on 23.02.17.

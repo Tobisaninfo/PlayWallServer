@@ -19,9 +19,11 @@ class PadLoader {
 
 			val pad = new Pad()
 			pad.id = UUID.fromString(json.get(PAD_ID).getAsString)
-			pad.name = json.get(PAD_NAME).getAsString
+			if (json.get(PAD_NAME) != null)
+				pad.name = json.get(PAD_NAME).getAsString
 			pad.position = json.get(PAD_POSITION).getAsInt
-			pad.name = json.get(PAD_CONTENT_TYPE).getAsString
+			if (json.get(PAD_CONTENT_TYPE) != null)
+				pad.contentType = json.get(PAD_CONTENT_TYPE).getAsString
 			pad.page = page
 
 			val pathLoader = new PathLoader
@@ -30,7 +32,8 @@ class PadLoader {
 
 			val designLoader = new DesignLoader
 			val designJson = json.getAsJsonObject(PAD_DESIGN)
-			pad.design = designLoader.load(designJson, pad)
+			if (designJson != null)
+				pad.design = designLoader.load(designJson, pad)
 
 			pad
 		}).toList

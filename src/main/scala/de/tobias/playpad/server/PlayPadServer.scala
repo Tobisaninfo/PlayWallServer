@@ -91,6 +91,7 @@ object PlayPadServer extends App {
 
 	Runtime.getRuntime.addShutdownHook(new Thread(() => {
 		databaseConnection.close()
+		connectionSource.close()
 		stop()
 	}))
 }
