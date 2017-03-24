@@ -19,8 +19,8 @@ class PathAddListener extends Listener {
 
 		SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_PAD_REF, padId)
 
-		if (json.get("path") != null) {
-			val path = json.get("path").getAsString
+		if (json.get("filename") != null) {
+			val path = json.get("filename").getAsString
 			SqlHelper.insertOrUpdate(connection, SqlDef.PATH, pathId, SqlDef.PATH_NAME, path)
 		}
 	}

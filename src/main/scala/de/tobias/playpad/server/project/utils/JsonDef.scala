@@ -22,7 +22,7 @@ object JsonDef {
 	val PAD_DESIGN = "design"
 
 	val PATH_ID = "id"
-	val PATH_PATH = "path"
+	val PATH_PATH = "filename"
 
 	val DESIGN_ID = "id"
 	val DESIGN_BACKGROUND_COLOR = "background_color"

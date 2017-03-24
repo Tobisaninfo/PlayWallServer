@@ -25,7 +25,7 @@ object SqlDef {
 
 	val PATH = "Path"
 	val PATH_ID = "id"
-	val PATH_NAME = "path"
+	val PATH_NAME = "filename"
 	val PATH_PAD_REF = "pad_id"
 
 	val DESIGN = "Design"

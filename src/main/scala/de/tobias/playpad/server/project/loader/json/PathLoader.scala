@@ -19,7 +19,7 @@ class PathLoader {
 
 			val path = new Path()
 			path.id = UUID.fromString(json.get(PATH_ID).getAsString)
-			path.path = json.get(PATH_PATH).getAsString
+			path.filename = json.get(PATH_PATH).getAsString
 			path.pad = pad
 
 			path

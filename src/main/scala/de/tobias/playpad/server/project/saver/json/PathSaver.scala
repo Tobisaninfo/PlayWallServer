@@ -12,7 +12,7 @@ class PathSaver {
 		val jsonObject = new JsonObject()
 
 		jsonObject.addProperty(PATH_ID, path.id.toString)
-		jsonObject.addProperty(PATH_PATH, path.path)
+		jsonObject.addProperty(PATH_PATH, path.filename)
 
 		jsonObject
 	}

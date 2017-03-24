@@ -8,7 +8,7 @@ import java.util.UUID
 class Path {
 
 	var id: UUID = UUID.randomUUID()
-	var path: String = _
+	var filename: String = _
 
 	var pad: Pad = _
 }

@@ -21,7 +21,7 @@ class PathLoader(val connection: Connection) {
 		while (result.next()) {
 			val path = new Path()
 			path.id = UUID.fromString(result.getString(PATH_ID))
-			path.path = result.getString(PATH_NAME)
+			path.filename = result.getString(PATH_NAME)
 
 			path.pad = pad
 			paths = path :: paths

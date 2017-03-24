@@ -9,7 +9,7 @@ import de.tobias.playpad.server.account.Account
 import de.tobias.playpad.server.server.project.sync.listener.design.{DesignAddListener, DesignUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.pad.{PadAddListener, PadClearListener, PadRemoveListener, PadUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.page.{PageAddListener, PageRemoveListener, PageUpdateListener}
-import de.tobias.playpad.server.server.project.sync.listener.path.{PathAddListener, PathRemoveListener, PathUpdateListener}
+import de.tobias.playpad.server.server.project.sync.listener.path.{PathAddListener, PathRemoveListener}
 import de.tobias.playpad.server.server.project.sync.listener.project.{ProjectAddListener, ProjectRemoveListener, ProjectUpdateListener}
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.{OnWebSocketClose, OnWebSocketConnect, OnWebSocketMessage, WebSocket}
@@ -41,7 +41,6 @@ import scala.collection.{Map, mutable}
 		"pad-clear" -> new PadClearListener(),
 
 		"path-add" -> new PathAddListener(),
-		"path-update" -> new PathUpdateListener(),
 		"path-rm" -> new PathRemoveListener(),
 
 		"design-add" -> new DesignAddListener(),
