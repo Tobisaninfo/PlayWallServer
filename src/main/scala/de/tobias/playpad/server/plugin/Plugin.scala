@@ -14,8 +14,10 @@ import com.j256.ormlite.table.DatabaseTable
 	@DatabaseField var path: String = _
 	@DatabaseField var version: String = _
 	@DatabaseField var build: Int = _
+	@DatabaseField var icon: String = _
+	@DatabaseField var category: String = _
 
-	def this(name: String, displayName: String, path: String, description: String, version: String, build: Int) {
+	def this(name: String, displayName: String, path: String, description: String, version: String, build: Int, icon: String, category: String) {
 		this()
 		this.name = name
 		this.displayName = displayName
@@ -23,6 +25,8 @@ import com.j256.ormlite.table.DatabaseTable
 		this.description = description
 		this.version = version
 		this.build = build
+		this.icon = icon
+		this.category = category
 	}
 
 	def getId: Int = id
