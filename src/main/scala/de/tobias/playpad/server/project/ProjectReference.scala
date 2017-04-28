@@ -10,4 +10,8 @@ class ProjectReference {
 	var id: UUID = UUID.randomUUID()
 	var name: String = _
 
+	var accountId: Int = _ // Account that own this project
+	var lastModified: Long = _
+	var session: String = _
+
 }

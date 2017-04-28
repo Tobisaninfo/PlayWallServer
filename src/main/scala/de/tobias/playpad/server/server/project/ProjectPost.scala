@@ -25,7 +25,7 @@ class ProjectPost(connection: Connection, sessionDao: Dao[Session, Int]) extends
 
 				val projectLoader = new ProjectLoader
 				val project = projectLoader.load(json)
-				project.accountId = s.getAccount.id
+				project.projectReference.accountId = s.getAccount.id
 
 				val projectSaver = new ProjectSaver(connection)
 				projectSaver.save(project)

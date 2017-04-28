@@ -33,7 +33,8 @@ object PlayPadServer extends App {
 
 	private val settings = settingsLoader.load(settingsPath)
 
-	private val databaseUrl = s"jdbc:mysql://${settings.db_host}:${settings.db_port}/${settings.db_database}?autoReconnect=true&wait_timeout=86400"
+	private val databaseUrl = s"jdbc:mysql://${settings.db_host}:${settings.db_port}/${settings.db_database}?" +
+		s"autoReconnect=true&wait_timeout=86400&serverTimezone=Europe/Berlin"
 	var connectionSource = new JdbcConnectionSource(databaseUrl)
 	connectionSource.setUsername(settings.db_username)
 	connectionSource.setPassword(settings.db_password)

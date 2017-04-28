@@ -12,8 +12,8 @@ import de.tobias.playpad.server.project.utils.JsonDef._
 class ProjectLoader {
 	def load(json: JsonObject): Project = {
 		val project = new Project()
-		project.id = UUID.fromString(json.get(PROJECT_ID).getAsString)
-		project.name = json.get(PROJECT_NAME).getAsString
+		project.projectReference.id = UUID.fromString(json.get(PROJECT_ID).getAsString)
+		project.projectReference.name = json.get(PROJECT_NAME).getAsString
 
 		val pageLoader = new PageLoader
 		project.pages = pageLoader.load(json.getAsJsonArray(PROJECT_PAGES), project)

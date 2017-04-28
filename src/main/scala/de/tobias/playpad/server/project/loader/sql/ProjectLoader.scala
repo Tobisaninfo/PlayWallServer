@@ -3,6 +3,7 @@ package de.tobias.playpad.server.project.loader.sql
 import java.sql.Connection
 import java.util.UUID
 
+import de.tobias.playpad.server.account.Session
 import de.tobias.playpad.server.project.utils.SqlDef._
 import de.tobias.playpad.server.project.{Project, ProjectReference}
 
@@ -20,9 +21,12 @@ class ProjectLoader(val connection: Connection) {
 
 		while (result.next()) {
 			val project = new Project()
-			project.id = UUID.fromString(result.getString(PROJECT_ID))
-			project.name = result.getString(PROJECT_NAME)
-			project.accountId = result.getInt(PROJECT_ACCOUNT_ID)
+			val projectReference = project.projectReference
+			projectReference.id = UUID.fromString(result.getString(PROJECT_ID))
+			projectReference.name = result.getString(PROJECT_NAME)
+			projectReference.accountId = result.getInt(PROJECT_ACCOUNT_ID)
+			projectReference.lastModified = result.getLong(PROJECT_LAST_MODIFIED)
+			projectReference.session = result.getString(PROJECT_SESSION_KEY)
 
 			val pageLoader = new PageLoader(connection)
 			project.pages = pageLoader.load(project)
@@ -45,11 +49,15 @@ class ProjectLoader(val connection: Connection) {
 		var projects: List[ProjectReference] = List()
 
 		while (result.next()) {
-			val project = new ProjectReference()
-			project.id = UUID.fromString(result.getString(PROJECT_ID))
-			project.name = result.getString(PROJECT_NAME)
+			val projectReference = new ProjectReference()
 
-			projects = project :: projects
+			projectReference.id = UUID.fromString(result.getString(PROJECT_ID))
+			projectReference.name = result.getString(PROJECT_NAME)
+			projectReference.accountId = result.getInt(PROJECT_ACCOUNT_ID)
+			projectReference.lastModified = result.getLong(PROJECT_LAST_MODIFIED)
+			projectReference.session = result.getString(PROJECT_SESSION_KEY)
+
+			projects = projectReference :: projects
 		}
 
 		result.close()

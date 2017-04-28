@@ -1,11 +1,14 @@
 package de.tobias.playpad.server.server.project.sync
 
 import java.sql.Connection
+import java.util.UUID
 
 import com.google.gson.{JsonObject, JsonParser}
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account
 import de.tobias.playpad.server.account.Account
+import de.tobias.playpad.server.project.utils.SqlDef
+import de.tobias.playpad.server.server.SqlHelper
 import de.tobias.playpad.server.server.project.sync.listener.design.{DesignAddListener, DesignUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.pad.{PadAddListener, PadClearListener, PadRemoveListener, PadUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.page.{PageAddListener, PageRemoveListener, PageUpdateListener}
@@ -81,21 +84,27 @@ import scala.collection.{Map, mutable}
 		println(text)
 		// Store in Database
 		try {
-			// Push to clients
 			val key = serverSession.getUpgradeRequest.getHeader(SESSION_KEY_HEADER)
-			if (key != null) {
+			val session = account.Session.getSession(key, sessionDao)
 
+			if (key != null) {
 				val parser = new JsonParser()
 				val json = parser.parse(text)
 				json match {
 					case json: JsonObject =>
-						val session = account.Session.getSession(key, sessionDao)
 						session match {
 							case Some(s) =>
 								val cmd = json.get("cmd").getAsString
 								if (listeners.contains(cmd)) {
 									listeners(cmd).onChange(json, connection, s)
 								}
+
+								// Write last modification to project table
+								val timeStemp = json.get("time").getAsLong
+								val projectRef = UUID.fromString(json.get("project").getAsString)
+								SqlHelper.insertOrUpdate(connection, SqlDef.PROJECT, projectRef, SqlDef.PROJECT_LAST_MODIFIED, timeStemp)
+								SqlHelper.insertOrUpdate(connection, SqlDef.PROJECT, projectRef, SqlDef.PROJECT_SESSION_KEY, s.key)
+
 							case None => serverSession.close(500, "Invalid Session")
 						}
 					case _ => serverSession.close(500, "Invalid Data")
@@ -104,7 +113,7 @@ import scala.collection.{Map, mutable}
 				serverSession.close(500, "Invalid Key")
 			}
 
-			val session = account.Session.getSession(key, sessionDao)
+			// Push to clients
 			session match {
 				case Some(s) =>
 					this.sessions(s.getAccount)

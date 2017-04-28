@@ -12,8 +12,9 @@ import de.tobias.playpad.server.server.SqlHelper
   */
 class ProjectSaver(val connection: Connection) {
 	def save(project: Project): Unit = {
-		SqlHelper.insertOrUpdate(connection, PROJECT, project.id, PROJECT_NAME, project.name)
-		SqlHelper.insertOrUpdate(connection, PROJECT, project.id, PROJECT_ACCOUNT_ID, project.accountId)
+		val reference = project.projectReference
+		SqlHelper.insertOrUpdate(connection, PROJECT, reference.id, PROJECT_NAME, reference.name)
+		SqlHelper.insertOrUpdate(connection, PROJECT, reference.id, PROJECT_ACCOUNT_ID, reference.accountId)
 
 		val pageSaver = new PageSaver(connection)
 		project.pages.foreach(pageSaver.save)

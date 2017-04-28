@@ -13,7 +13,7 @@ class PageLoader(val connection: Connection) {
 	def load(project: Project): List[Page] = {
 		val sql = s"SELECT * FROM $PAGE WHERE $PAGE_PROJECT_REF = ?"
 		val preparedStatement = connection.prepareStatement(sql)
-		preparedStatement.setString(1, project.id.toString)
+		preparedStatement.setString(1, project.projectReference.id.toString)
 		val result = preparedStatement.executeQuery()
 
 		var pages: List[Page] = List()

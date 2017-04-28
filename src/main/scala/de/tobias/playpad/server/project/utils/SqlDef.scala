@@ -9,6 +9,8 @@ object SqlDef {
 	val PROJECT_ID = "id"
 	val PROJECT_NAME = "name"
 	val PROJECT_ACCOUNT_ID = "account_id"
+	val PROJECT_LAST_MODIFIED = "last_modified"
+	val PROJECT_SESSION_KEY = "session_key"
 
 	val PAGE = "Page"
 	val PAGE_ID = "id"

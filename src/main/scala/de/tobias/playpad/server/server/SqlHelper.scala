@@ -37,6 +37,9 @@ object SqlHelper {
 			case value: Int =>
 				preparedStatement.setInt(2, value)
 				preparedStatement.setInt(3, value)
+			case value: Long =>
+				preparedStatement.setLong(2, value)
+				preparedStatement.setLong(3, value)
 			case value: Double =>
 				preparedStatement.setDouble(2, value)
 				preparedStatement.setDouble(3, value)

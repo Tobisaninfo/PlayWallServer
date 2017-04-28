@@ -15,8 +15,8 @@ class ProjectSaver {
 		val pageArray = new JsonArray
 		project.pages.foreach(page => pageArray.add(pageSaver.save(page)))
 
-		jsonObject.addProperty(PROJECT_ID, project.id.toString)
-		jsonObject.addProperty(PROJECT_NAME, project.name)
+		jsonObject.addProperty(PROJECT_ID, project.projectReference.id.toString)
+		jsonObject.addProperty(PROJECT_NAME, project.projectReference.name)
 		jsonObject.add(PROJECT_PAGES, pageArray)
 
 		jsonObject
