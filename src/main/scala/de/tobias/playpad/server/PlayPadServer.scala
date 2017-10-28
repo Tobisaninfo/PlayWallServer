@@ -16,7 +16,6 @@ import de.tobias.playpad.server.server.project.sync.ProjectSyncHandler
 import de.tobias.playpad.server.settings.SettingsHandler
 import de.tobias.playpad.server.transformer.JsonTransformer
 import spark.Spark._
-import spark.route.RouteOverview
 
 /**
   * Created by tobias on 29.01.17.
@@ -82,12 +81,8 @@ object PlayPadServer extends App {
 	get("/sessions", new SessionGet(accountDao), new JsonTransformer)
 
 	// DEBUG
-	exception(classOf[Exception], (exception, _, _) => {
-		exception.printStackTrace()
-		halt(500, s"internal error: ${exception.getLocalizedMessage}")
-	})
+	// DebugScreen.enableDebugScreen()
 
-	RouteOverview.enableRouteOverview()
 	SettingsHandler.saver.save(settings, settingsPath)
 
 	Runtime.getRuntime.addShutdownHook(new Thread(() => {

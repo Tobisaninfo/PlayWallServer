@@ -63,7 +63,7 @@ import scala.collection.{Map, mutable}
 					this.sessions += (s.getAccount -> new mutable.HashSet[Session]())
 				}
 				this.sessions(s.getAccount) += serverSession
-			case None => serverSession.close(500, "Invalid Key")
+			case None => serverSession.disconnect()
 		}
 	}
 
