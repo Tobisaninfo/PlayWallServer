@@ -14,7 +14,7 @@ class Page {
 	@JsonName("name")
 	var name: String = _
 
-	@JsonName(value = "position", handler = classOf[NumberSerializerHandler])
+	@JsonName(value = "position", handler = classOf[IntSerializerHandler])
 	var position: Int = _
 
 	@JsonCollection(value = "pads", `type` = classOf[Pad])

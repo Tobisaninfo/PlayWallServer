@@ -19,9 +19,9 @@ class PadSaver(val connection: Connection) {
 		val pathSaver = new PathSaver(connection)
 		pad.paths.foreach(pathSaver.save)
 
-		if (pad.design != null) {
-			val designSaver = new DesignSaver(connection)
-			designSaver.save(pad.design)
-		}
+		//		if (pad.design != null) {
+		//			val designSaver = new DesignSaver(connection)
+		//			designSaver.save(pad.design)
+		//		} TODO
 	}
 }
