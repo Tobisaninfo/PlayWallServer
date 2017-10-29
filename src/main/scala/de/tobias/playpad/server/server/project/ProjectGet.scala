@@ -5,8 +5,8 @@ import java.util.UUID
 
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account.Session
+import de.tobias.playpad.server.json.JsonSerializer
 import de.tobias.playpad.server.project.loader.sql.ProjectLoader
-import de.tobias.playpad.server.project.saver.json.ProjectSaver
 import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
 
@@ -28,9 +28,8 @@ class ProjectGet(connection: Connection, sessionDao: Dao[Session, Int]) extends 
 
 				if (projects.size == 1) {
 					val project = projects.head
-					if (project.projectReference.accountId == s.getAccount.id) {
-						val projectSaver = new ProjectSaver()
-						return projectSaver.save(project)
+					if (project.accountId == s.getAccount.id) {
+						return new JsonSerializer().serialize(project)
 					}
 				}
 				new Result(Status.ERROR, "Project invalid")

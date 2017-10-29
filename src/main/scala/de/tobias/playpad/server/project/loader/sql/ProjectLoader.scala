@@ -3,9 +3,8 @@ package de.tobias.playpad.server.project.loader.sql
 import java.sql.Connection
 import java.util.UUID
 
-import de.tobias.playpad.server.account.Session
+import de.tobias.playpad.server.project.Project
 import de.tobias.playpad.server.project.utils.SqlDef._
-import de.tobias.playpad.server.project.{Project, ProjectReference}
 
 /**
   * Created by tobias on 17.02.17.
@@ -21,12 +20,11 @@ class ProjectLoader(val connection: Connection) {
 
 		while (result.next()) {
 			val project = new Project()
-			val projectReference = project.projectReference
-			projectReference.id = UUID.fromString(result.getString(PROJECT_ID))
-			projectReference.name = result.getString(PROJECT_NAME)
-			projectReference.accountId = result.getInt(PROJECT_ACCOUNT_ID)
-			projectReference.lastModified = result.getLong(PROJECT_LAST_MODIFIED)
-			projectReference.session = result.getString(PROJECT_SESSION_KEY)
+			project.id = UUID.fromString(result.getString(PROJECT_ID))
+			project.name = result.getString(PROJECT_NAME)
+			project.accountId = result.getInt(PROJECT_ACCOUNT_ID)
+			project.lastModified = result.getLong(PROJECT_LAST_MODIFIED)
+			project.session = result.getString(PROJECT_SESSION_KEY)
 
 			val pageLoader = new PageLoader(connection)
 			project.pages = pageLoader.load(project)
@@ -40,24 +38,24 @@ class ProjectLoader(val connection: Connection) {
 		projects
 	}
 
-	def list(accountId: Int): List[ProjectReference] = {
+	def list(accountId: Int): List[Project] = {
 		val sql = s"SELECT * FROM $PROJECT WHERE $PROJECT_ACCOUNT_ID = ?"
 		val preparedStatement = connection.prepareStatement(sql)
 		preparedStatement.setInt(1, accountId)
 		val result = preparedStatement.executeQuery()
 
-		var projects: List[ProjectReference] = List()
+		var projects: List[Project] = List()
 
 		while (result.next()) {
-			val projectReference = new ProjectReference()
+			val project = new Project()
 
-			projectReference.id = UUID.fromString(result.getString(PROJECT_ID))
-			projectReference.name = result.getString(PROJECT_NAME)
-			projectReference.accountId = result.getInt(PROJECT_ACCOUNT_ID)
-			projectReference.lastModified = result.getLong(PROJECT_LAST_MODIFIED)
-			projectReference.session = result.getString(PROJECT_SESSION_KEY)
+			project.id = UUID.fromString(result.getString(PROJECT_ID))
+			project.name = result.getString(PROJECT_NAME)
+			project.accountId = result.getInt(PROJECT_ACCOUNT_ID)
+			project.lastModified = result.getLong(PROJECT_LAST_MODIFIED)
+			project.session = result.getString(PROJECT_SESSION_KEY)
 
-			projects = projectReference :: projects
+			projects = project :: projects
 		}
 
 		result.close()

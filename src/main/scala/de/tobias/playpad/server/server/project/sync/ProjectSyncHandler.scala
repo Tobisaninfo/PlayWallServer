@@ -94,16 +94,16 @@ import scala.collection.{Map, mutable}
 					case json: JsonObject =>
 						session match {
 							case Some(s) =>
-								val cmd = json.get("cmd").getAsString
-								if (listeners.contains(cmd)) {
-									listeners(cmd).onChange(json, connection, s)
-								}
-
 								// Write last modification to project table
 								val timeStemp = json.get("time").getAsLong
 								val projectRef = UUID.fromString(json.get("project").getAsString)
 								SqlHelper.insertOrUpdate(connection, SqlDef.PROJECT, projectRef, SqlDef.PROJECT_LAST_MODIFIED, timeStemp)
 								SqlHelper.insertOrUpdate(connection, SqlDef.PROJECT, projectRef, SqlDef.PROJECT_SESSION_KEY, s.key)
+
+								val cmd = json.get("cmd").getAsString
+								if (listeners.contains(cmd)) {
+									listeners(cmd).onChange(json, connection, s)
+								}
 
 							case None => serverSession.close(500, "Invalid Session")
 						}

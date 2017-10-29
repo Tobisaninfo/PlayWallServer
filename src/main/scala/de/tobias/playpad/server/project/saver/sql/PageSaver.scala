@@ -13,7 +13,7 @@ class PageSaver(connection: Connection) {
 	def save(page: Page): Unit = {
 		SqlHelper.insertOrUpdate(connection, PAGE, page.id, PAGE_NAME, page.name)
 		SqlHelper.insertOrUpdate(connection, PAGE, page.id, PAGE_POSITION, page.position)
-		SqlHelper.insertOrUpdate(connection, PAGE, page.id, PAGE_PROJECT_REF, page.project.projectReference.id)
+		SqlHelper.insertOrUpdate(connection, PAGE, page.id, PAGE_PROJECT_REF, page.project.id)
 
 		val padSaver = new PadSaver(connection)
 		page.pads.foreach(padSaver.save)

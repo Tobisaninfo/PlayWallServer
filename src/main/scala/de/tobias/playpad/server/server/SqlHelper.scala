@@ -72,7 +72,7 @@ object SqlHelper {
 	}
 
 	def createTables(connection: Connection): Unit = {
-		def createTable(sql: String) = {
+		def createTable(sql: String): Unit = {
 			val preparedStatement = connection.prepareStatement(sql)
 			preparedStatement.execute()
 			preparedStatement.close()
@@ -83,6 +83,8 @@ object SqlHelper {
 			  |  `id` varchar(48) NOT NULL DEFAULT '',
 			  |  `name` varchar(255) DEFAULT NULL,
 			  |  `account_id` int(11) DEFAULT NULL,
+			  |  `last_modified` bigint(11) DEFAULT NULL,
+			  |  `session_key` varchar(255) DEFAULT NULL,
 			  |  PRIMARY KEY (`id`),
 			  |  UNIQUE KEY `id` (`id`)
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
@@ -101,7 +103,7 @@ object SqlHelper {
 			  |  `id` varchar(48) NOT NULL DEFAULT '',
 			  |  `name` varchar(255) DEFAULT NULL,
 			  |  `position` int(11) DEFAULT NULL,
-			  |  `page` int(11) DEFAULT NULL,
+			  |  `content_type` varchar(100) DEFAULT NULL,
 			  |  `page_id` varchar(48) DEFAULT NULL,
 			  |  PRIMARY KEY (`id`),
 			  |  UNIQUE KEY `id` (`id`),
@@ -110,7 +112,7 @@ object SqlHelper {
 		createTable(
 			"""CREATE TABLE IF NOT EXISTS `Path` (
 			  |  `id` varchar(40) NOT NULL DEFAULT '',
-			  |  `path` text,
+			  |  `filename` text,
 			  |  `pad_id` varchar(40) DEFAULT NULL,
 			  |  PRIMARY KEY (`id`),
 			  |  KEY `pad_id` (`pad_id`),
