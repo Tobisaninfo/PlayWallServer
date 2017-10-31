@@ -32,8 +32,14 @@ object SqlDef {
 
 	val DESIGN = "Design"
 	val DESIGN_ID = "id"
-	val DESIGN_PAD_REF = "pad_id"
+	val DESIGN_PAD_REF = "settings_id"
 	val DESIGN_BACKGROUND_COLOR = "background_color"
 	val DESIGN_PLAY_COLOR = "play_color"
 
+	val PAD_SETTINGS = "PadSettings"
+	val PAD_SETTINGS_PAD_REF = "pad_id"
+	val PAD_SETTINGS_VOLUME = "volume"
+	val PAD_SETTINGS_LOOP = "looping"
+	val PAD_SETTINGS_TIME_MODE = "timemode"
+	val PAD_SETTINGS_WARNING = "warning"
 }

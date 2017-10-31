@@ -32,8 +32,13 @@ object SqlHelper {
 				preparedStatement.setString(2, value)
 				preparedStatement.setString(3, value)
 			case value: Boolean =>
-				preparedStatement.setBoolean(2, value)
-				preparedStatement.setBoolean(3, value)
+				val v = if (value) {
+					1
+				} else {
+					0
+				}
+				preparedStatement.setInt(2, v)
+				preparedStatement.setInt(3, v)
 			case value: Int =>
 				preparedStatement.setInt(2, value)
 				preparedStatement.setInt(3, value)
@@ -51,7 +56,6 @@ object SqlHelper {
 				preparedStatement.setNull(3, NULL)
 
 		}
-
 		preparedStatement
 	}
 
@@ -96,41 +100,8 @@ object SqlHelper {
 			  |  `project_id` varchar(48) DEFAULT NULL,
 			  |  PRIMARY KEY (`id`),
 			  |  UNIQUE KEY `id` (`id`),
-			  |  CONSTRAINT `Page_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`) ON DELETE CASCADE
-			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
-
-		createTable(
-			"""CREATE TABLE IF NOT EXISTS `Fade` (
-			  |  `id` varchar(48) NOT NULL DEFAULT '',
-			  |  `fadeIn` int(11) DEFAULT NULL,
-			  |  `fadeOut` int(11) DEFAULT NULL,
-			  |  `fadeInStart` tinyint(1) DEFAULT NULL,
-			  |  `fadeInPause` tinyint(1) DEFAULT NULL,
-			  |  `fadeOutPause` tinyint(1) DEFAULT NULL,
-			  |  `fadeOutStop` tinyint(1) DEFAULT NULL,
-			  |  PRIMARY KEY (`id`)
-			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
-		createTable(
-			"""CREATE TABLE IF NOT EXISTS `Design` (
-			  |  `id` varchar(40) NOT NULL DEFAULT '',
-			  |  `background_color` varchar(20) DEFAULT NULL,
-			  |  `play_color` varchar(20) DEFAULT NULL,
-			  |  PRIMARY KEY (`id`)
-			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
-		createTable(
-			"""CREATE TABLE IF NOT EXISTS `PadSettings` (
-			  |  `id` varchar(48) NOT NULL DEFAULT '',
-			  |  `volume` double DEFAULT NULL,
-			  |  `loop` tinyint(1) DEFAULT NULL,
-			  |  `timeMode` varchar(20) DEFAULT NULL,
-			  |  `fade` varchar(48) DEFAULT NULL,
-			  |  `warning` int(11) DEFAULT NULL,
-			  |  `design` varchar(48) DEFAULT NULL,
-			  |  PRIMARY KEY (`id`),
-			  |  KEY `fade` (`fade`),
-			  |  KEY `design` (`design`),
-			  |  CONSTRAINT `PadSettings_ibfk_2` FOREIGN KEY (`design`) REFERENCES `Design` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-			  |  CONSTRAINT `PadSettings_ibfk_1` FOREIGN KEY (`fade`) REFERENCES `Fade` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+			  |  KEY `project_id` (`project_id`),
+			  |  CONSTRAINT `Page_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 
 		createTable(
@@ -140,13 +111,10 @@ object SqlHelper {
 			  |  `position` int(11) DEFAULT NULL,
 			  |  `content_type` varchar(100) DEFAULT NULL,
 			  |  `page_id` varchar(48) DEFAULT NULL,
-			  |  `settings_id` varchar(48) DEFAULT NULL,
 			  |  PRIMARY KEY (`id`),
 			  |  UNIQUE KEY `id` (`id`),
 			  |  KEY `Pad_ibfk_1` (`page_id`),
-			  |  KEY `settings_id` (`settings_id`),
-			  |  CONSTRAINT `Pad_ibfk_2` FOREIGN KEY (`settings_id`) REFERENCES `PadSettings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-			  |  CONSTRAINT `Pad_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `Page` (`id`) ON DELETE CASCADE
+			  |  CONSTRAINT `Pad_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `Page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 		createTable(
 			"""CREATE TABLE IF NOT EXISTS `Path` (
@@ -156,6 +124,43 @@ object SqlHelper {
 			  |  PRIMARY KEY (`id`),
 			  |  KEY `pad_id` (`pad_id`),
 			  |  CONSTRAINT `Path_ibfk_1` FOREIGN KEY (`pad_id`) REFERENCES `Pad` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
+
+		createTable(
+			"""CREATE TABLE IF NOT EXISTS `PadSettings` (
+			  |  `id` varchar(48) NOT NULL DEFAULT '',
+			  |  `volume` double DEFAULT NULL,
+			  |  `loop` tinyint(1) DEFAULT NULL,
+			  |  `timeMode` varchar(20) DEFAULT NULL,
+			  |  `warning` int(11) DEFAULT NULL,
+			  |  `pad_id` varchar(48) DEFAULT NULL,
+			  |  PRIMARY KEY (`id`),
+			  |  KEY `pad_id` (`pad_id`),
+			  |  CONSTRAINT `PadSettings_ibfk_1` FOREIGN KEY (`pad_id`) REFERENCES `Pad` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
+		createTable(
+			"""CREATE TABLE IF NOT EXISTS `Design` (
+			  |  `id` varchar(40) NOT NULL DEFAULT '',
+			  |  `background_color` varchar(20) DEFAULT NULL,
+			  |  `play_color` varchar(20) DEFAULT NULL,
+			  |  `settings_id` varchar(48) DEFAULT NULL,
+			  |  PRIMARY KEY (`id`),
+			  |  KEY `settings_id` (`settings_id`),
+			  |  CONSTRAINT `Design_ibfk_1` FOREIGN KEY (`settings_id`) REFERENCES `PadSettings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
+		createTable(
+			"""CREATE TABLE IF NOT EXISTS `Fade` (
+			  |  `id` varchar(48) NOT NULL DEFAULT '',
+			  |  `fadeIn` int(11) DEFAULT NULL,
+			  |  `fadeOut` int(11) DEFAULT NULL,
+			  |  `fadeInStart` tinyint(1) DEFAULT NULL,
+			  |  `fadeInPause` tinyint(1) DEFAULT NULL,
+			  |  `fadeOutPause` tinyint(1) DEFAULT NULL,
+			  |  `fadeOutStop` tinyint(1) DEFAULT NULL,
+			  |  `padSettings_id` varchar(48) DEFAULT NULL,
+			  |  PRIMARY KEY (`id`),
+			  |  KEY `padSettings_id` (`padSettings_id`),
+			  |  CONSTRAINT `Fade_ibfk_1` FOREIGN KEY (`padSettings_id`) REFERENCES `PadSettings` (`id`)
 			  |) ENGINE=InnoDB DEFAULT CHARSET=latin1;""".stripMargin)
 	}
 }

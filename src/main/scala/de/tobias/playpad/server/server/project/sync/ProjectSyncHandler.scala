@@ -10,6 +10,7 @@ import de.tobias.playpad.server.account.Account
 import de.tobias.playpad.server.project.utils.SqlDef
 import de.tobias.playpad.server.server.SqlHelper
 import de.tobias.playpad.server.server.project.sync.listener.design.{DesignAddListener, DesignUpdateListener}
+import de.tobias.playpad.server.server.project.sync.listener.pad.settings.{PadSettingsAddListener, PadSettingsUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.pad.{PadAddListener, PadClearListener, PadRemoveListener, PadUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.page.{PageAddListener, PageRemoveListener, PageUpdateListener}
 import de.tobias.playpad.server.server.project.sync.listener.path.{PathAddListener, PathRemoveListener}
@@ -47,7 +48,10 @@ import scala.collection.{Map, mutable}
 		"path-rm" -> new PathRemoveListener(),
 
 		"design-add" -> new DesignAddListener(),
-		"design-update" -> new DesignUpdateListener()
+		"design-update" -> new DesignUpdateListener(),
+
+		"pad-settings-add" -> new PadSettingsAddListener(),
+		"pad-settings-update" -> new PadSettingsUpdateListener()
 	)
 
 	@OnWebSocketConnect def onConnect(serverSession: Session): Unit = {
