@@ -1,8 +1,5 @@
 package de.tobias.playpad.server
 
-import java.nio.file.{Files, Paths}
-import java.sql.DriverManager
-
 import com.j256.ormlite.dao.{Dao, DaoManager}
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.table.TableUtils
@@ -18,8 +15,8 @@ import de.tobias.playpad.server.transformer.JsonTransformer
 import spark.Spark._
 
 /**
-  * Created by tobias on 29.01.17.
-  */
+ * Created by tobias on 29.01.17.
+ */
 object PlayPadServer extends App {
 
 	// Load Config

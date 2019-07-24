@@ -1,19 +1,16 @@
 package de.tobias.playpad.server.project.loader.sql
 
-import java.sql.Connection
-import java.util.UUID
-
 import de.tobias.playpad.server.project.utils.SqlDef._
 import de.tobias.playpad.server.project.{Page, Project}
 
 /**
-  * Created by tobias on 17.02.17.
-  */
+ * Created by tobias on 17.02.17.
+ */
 class PageLoader(val connection: Connection) {
 	def load(project: Project): List[Page] = {
 		val sql = s"SELECT * FROM $PAGE WHERE $PAGE_PROJECT_REF = ?"
 		val preparedStatement = connection.prepareStatement(sql)
-		preparedStatement.setString(1, project.projectReference.id.toString)
+		preparedStatement.setString(1, project.id.toString)
 		val result = preparedStatement.executeQuery()
 
 		var pages: List[Page] = List()

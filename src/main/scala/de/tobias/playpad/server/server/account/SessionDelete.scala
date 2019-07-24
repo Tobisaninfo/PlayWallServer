@@ -6,8 +6,8 @@ import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
 
 /**
-  * Created by tobias on 15.02.17.
-  */
+ * Created by tobias on 15.02.17.
+ */
 class SessionDelete(accountDao: Dao[Account, Int]) extends Route {
 
 	override def handle(request: Request, response: Response): AnyRef = {

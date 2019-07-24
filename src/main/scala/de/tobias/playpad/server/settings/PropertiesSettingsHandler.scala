@@ -1,13 +1,8 @@
 package de.tobias.playpad.server.settings
 
-import java.io.IOException
-import java.lang.reflect.Modifier
-import java.nio.file.{Files, Path}
-import java.util.Properties
-
 /**
-  * Created by tobias on 05.02.17.
-  */
+ * Created by tobias on 05.02.17.
+ */
 class PropertiesSettingsHandler extends SettingsLoader with SettingsSaver {
 
 	@throws[IOException]

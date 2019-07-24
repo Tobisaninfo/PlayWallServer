@@ -4,8 +4,8 @@ import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
 
 /**
-  * Created by tobias on 31.01.17.
-  */
+ * Created by tobias on 31.01.17.
+ */
 @DatabaseTable(tableName = "Plugin") class Plugin() {
 	@DatabaseField(generatedId = true) private val id: Int = 0
 	@DatabaseField var name: String = _

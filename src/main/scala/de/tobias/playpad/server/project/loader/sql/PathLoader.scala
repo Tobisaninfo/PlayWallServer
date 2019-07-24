@@ -1,14 +1,11 @@
 package de.tobias.playpad.server.project.loader.sql
 
-import java.sql.Connection
-import java.util.UUID
-
 import de.tobias.playpad.server.project.utils.SqlDef._
 import de.tobias.playpad.server.project.{Pad, Path}
 
 /**
-  * Created by tobias on 20.02.17.
-  */
+ * Created by tobias on 20.02.17.
+ */
 class PathLoader(val connection: Connection) {
 	def load(pad: Pad): List[Path] = {
 		val sql = s"SELECT * FROM $PATH WHERE $PATH_PAD_REF = ?"

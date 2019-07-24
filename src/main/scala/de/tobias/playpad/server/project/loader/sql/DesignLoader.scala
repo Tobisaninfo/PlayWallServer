@@ -1,14 +1,11 @@
 package de.tobias.playpad.server.project.loader.sql
 
-import java.sql.Connection
-import java.util.UUID
-
 import de.tobias.playpad.server.project.utils.SqlDef._
 import de.tobias.playpad.server.project.{Design, Pad}
 
 /**
-  * Created by tobias on 23.02.17.
-  */
+ * Created by tobias on 23.02.17.
+ */
 class DesignLoader(val connection: Connection) {
 	def load(pad: Pad): Design = {
 		val sql = s"SELECT * FROM $DESIGN WHERE $DESIGN_PAD_REF = ?"

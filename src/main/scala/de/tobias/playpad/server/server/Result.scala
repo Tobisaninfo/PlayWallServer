@@ -1,8 +1,8 @@
 package de.tobias.playpad.server.server
 
 /**
-  * Created by tobias on 16.02.17.
-  */
+ * Created by tobias on 16.02.17.
+ */
 class Result {
 
 	var status: String = _
