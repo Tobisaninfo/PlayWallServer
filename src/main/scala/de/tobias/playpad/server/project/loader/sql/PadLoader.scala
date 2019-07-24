@@ -5,7 +5,7 @@ import java.util.UUID
 
 import de.tobias.playpad.server.project.utils.SqlDef._
 import de.tobias.playpad.server.project.{Pad, Page}
-
+import de.tobias.playpad.server.sql.SqlSerializer
 /**
   * Created by tobias on 17.02.17.
   */
@@ -17,6 +17,10 @@ class PadLoader(val connection: Connection) {
 		val result = preparedStatement.executeQuery()
 
 		var pads: List[Pad] = List()
+
+
+        val padss = new SqlSerializer().queryObj(classOf[Pad], connection)
+        println(padss)
 
 		while (result.next()) {
 			val pad = new Pad()
