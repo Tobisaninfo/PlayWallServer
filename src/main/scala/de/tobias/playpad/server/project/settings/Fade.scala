@@ -1,6 +1,9 @@
 package de.tobias.playpad.server.project.settings
 
+import java.util.UUID
+
 import de.tobias.playpad.server.json._
+import javafx.util.Duration
 
 class Fade {
 

@@ -1,5 +1,9 @@
 package de.tobias.playpad.server.server
 
+import java.sql.Types.NULL
+import java.sql.{Connection, PreparedStatement}
+import java.util.UUID
+
 /**
  * Created by tobias on 17.02.17.
  */

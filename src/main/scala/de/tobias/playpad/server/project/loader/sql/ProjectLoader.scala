@@ -1,5 +1,8 @@
 package de.tobias.playpad.server.project.loader.sql
 
+import java.sql.Connection
+import java.util.UUID
+
 import de.tobias.playpad.server.project.Project
 import de.tobias.playpad.server.project.utils.SqlDef._
 

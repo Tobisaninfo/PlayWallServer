@@ -1,5 +1,7 @@
 package de.tobias.playpad.server.json
 
+import java.util
+
 import com.google.gson.{JsonArray, JsonObject}
 
 class JsonSerializer {

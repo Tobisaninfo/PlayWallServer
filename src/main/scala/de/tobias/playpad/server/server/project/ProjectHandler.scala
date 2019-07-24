@@ -1,5 +1,7 @@
 package de.tobias.playpad.server.server.project
 
+import java.sql.Connection
+
 import com.google.gson.{JsonObject, JsonParser}
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account

@@ -1,5 +1,7 @@
 package de.tobias.playpad.server.sql
 
+import java.util.UUID
+
 class UUIDSqlResultHandler extends SqlResultHandler {
 	override def fromResult(o: Any): Any = {
 		o match {

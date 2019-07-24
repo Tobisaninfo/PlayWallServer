@@ -1,5 +1,8 @@
 package de.tobias.playpad.server.server.project
 
+import java.sql.Connection
+import java.util.UUID
+
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account.Session
 import de.tobias.playpad.server.json.JsonSerializer

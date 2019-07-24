@@ -1,5 +1,8 @@
 package de.tobias.playpad.server.sql
 
+import java.sql.{Connection, ResultSet}
+import java.util.UUID
+
 class SqlSerializer {
 
 	def queryObj[T](clazz: Class[T], key: UUID, connection: Connection, keyName: String = null): T = {

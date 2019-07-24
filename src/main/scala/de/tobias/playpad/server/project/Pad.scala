@@ -1,5 +1,7 @@
 package de.tobias.playpad.server.project
 
+import java.util.UUID
+
 import de.tobias.playpad.server.json._
 import de.tobias.playpad.server.project.settings.PadSettings
 import de.tobias.playpad.server.sql.{ColumnName, ForeignKey, Id, Table}

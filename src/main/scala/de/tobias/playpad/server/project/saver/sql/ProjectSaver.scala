@@ -1,5 +1,8 @@
 package de.tobias.playpad.server.project.saver.sql
 
+import java.sql.Connection
+import java.util.UUID
+
 import de.tobias.playpad.server.project.Project
 import de.tobias.playpad.server.project.utils.SqlDef._
 import de.tobias.playpad.server.server.SqlHelper

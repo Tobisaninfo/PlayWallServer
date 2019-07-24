@@ -1,5 +1,7 @@
 package de.tobias.playpad.server.project
 
+import java.util.UUID
+
 import de.tobias.playpad.server.json.{JsonName, JsonParent, UUIDSerializerHandler}
 
 /**

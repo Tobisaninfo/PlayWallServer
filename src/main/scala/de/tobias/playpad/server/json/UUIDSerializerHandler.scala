@@ -1,5 +1,7 @@
 package de.tobias.playpad.server.json
 
+import java.util.UUID
+
 import com.google.gson.{JsonElement, JsonPrimitive}
 
 class UUIDSerializerHandler extends SerializerHandler {

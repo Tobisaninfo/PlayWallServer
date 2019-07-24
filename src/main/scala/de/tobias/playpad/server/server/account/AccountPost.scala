@@ -1,5 +1,7 @@
 package de.tobias.playpad.server.server.account
 
+import java.sql.SQLException
+
 import com.j256.ormlite.dao.Dao
 import de.tobias.playpad.server.account.Account
 import de.tobias.playpad.server.server.{Result, Status}
