@@ -1,4 +1,5 @@
 package de.tobias.playpad.server.server.project.listener
+
 import java.sql.Connection
 import java.util.UUID
 
@@ -6,8 +7,8 @@ import com.google.gson.JsonObject
 import de.tobias.playpad.server.server.SqlHelper
 
 /**
-  * Created by tobias on 18.02.17.
-  */
+ * Created by tobias on 18.02.17.
+ */
 @Deprecated
 class PropertyUpdateListener extends Listener {
 	override def onChange(json: JsonObject, connection: Connection): Unit = {
@@ -39,7 +40,7 @@ class PropertyUpdateListener extends Listener {
 						val uuid = UUID.fromString(id)
 						SqlHelper.insertOrUpdate(connection, className, uuid, field, value)
 					}
-				} else if (valueType == classOf[Integer]){
+                } else if (valueType == classOf[Integer]) {
 					val value = jsonObject.get("value").getAsInt
 
 					if (id.matches("[0-9]*")) {

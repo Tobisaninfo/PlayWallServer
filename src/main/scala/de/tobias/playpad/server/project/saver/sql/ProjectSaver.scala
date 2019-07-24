@@ -8,8 +8,8 @@ import de.tobias.playpad.server.project.utils.SqlDef._
 import de.tobias.playpad.server.server.SqlHelper
 
 /**
-  * Created by tobias on 17.02.17.
-  */
+ * Created by tobias on 17.02.17.
+ */
 class ProjectSaver(val connection: Connection) {
 	def save(project: Project): Unit = {
 		SqlHelper.insertOrUpdate(connection, PROJECT, project.id, PROJECT_NAME, project.name)
@@ -18,7 +18,8 @@ class ProjectSaver(val connection: Connection) {
 		val pageSaver = new PageSaver(connection)
 		project.pages.foreach(pageSaver.save)
 	}
-	def delete(project: UUID): Unit = {
+
+    def delete(project: UUID): Unit = {
 		SqlHelper.delete(connection, PROJECT, project)
 	}
 }

@@ -11,8 +11,8 @@ import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
 
 /**
-  * Created by tobias on 17.02.17.
-  */
+ * Created by tobias on 17.02.17.
+ */
 class ProjectGet(connection: Connection, sessionDao: Dao[Session, Int]) extends Route {
 
 	override def handle(request: Request, response: Response): AnyRef = {

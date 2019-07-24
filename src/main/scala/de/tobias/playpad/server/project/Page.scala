@@ -5,8 +5,8 @@ import java.util.UUID
 import de.tobias.playpad.server.json._
 
 /**
-  * Created by tobias on 17.02.17.
-  */
+ * Created by tobias on 17.02.17.
+ */
 class Page {
 
 	@JsonName(value = "id", handler = classOf[UUIDSerializerHandler])

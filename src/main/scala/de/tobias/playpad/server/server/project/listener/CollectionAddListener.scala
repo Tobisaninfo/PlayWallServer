@@ -9,8 +9,8 @@ import de.tobias.playpad.server.server.SqlHelper
 import scala.collection.JavaConverters
 
 /**
-  * Created by tobias on 18.02.17.
-  */
+ * Created by tobias on 18.02.17.
+ */
 @Deprecated
 class CollectionAddListener extends Listener {
 	override def onChange(json: JsonObject, connection: Connection): Unit = {

@@ -18,8 +18,8 @@ import de.tobias.playpad.server.transformer.JsonTransformer
 import spark.Spark._
 
 /**
-  * Created by tobias on 29.01.17.
-  */
+ * Created by tobias on 29.01.17.
+ */
 object PlayPadServer extends App {
 
 	// Load Config

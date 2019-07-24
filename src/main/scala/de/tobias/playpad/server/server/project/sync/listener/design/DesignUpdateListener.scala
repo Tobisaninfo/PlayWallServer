@@ -10,8 +10,8 @@ import de.tobias.playpad.server.server.SqlHelper
 import de.tobias.playpad.server.server.project.sync.listener.Listener
 
 /**
-  * Created by tobias on 19.02.17.
-  */
+ * Created by tobias on 19.02.17.
+ */
 class DesignUpdateListener extends Listener {
 	override def onChange(json: JsonObject, connection: Connection, session: Session): Unit = {
 		val designId = UUID.fromString(json.get("id").getAsString)

@@ -6,8 +6,8 @@ import java.nio.file.{Files, Path}
 import java.util.Properties
 
 /**
-  * Created by tobias on 05.02.17.
-  */
+ * Created by tobias on 05.02.17.
+ */
 class PropertiesSettingsHandler extends SettingsLoader with SettingsSaver {
 
 	@throws[IOException]

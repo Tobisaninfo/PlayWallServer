@@ -4,8 +4,8 @@ import java.io.IOException
 import java.nio.file.Path
 
 /**
-  * Created by tobias on 05.02.17.
-  */
+ * Created by tobias on 05.02.17.
+ */
 trait SettingsSaver {
 
 	@throws[IOException]

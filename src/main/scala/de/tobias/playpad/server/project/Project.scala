@@ -5,8 +5,8 @@ import java.util.UUID
 import de.tobias.playpad.server.json.{JsonCollection, JsonName, UUIDSerializerHandler}
 
 /**
-  * Created by tobias on 17.02.17.
-  */
+ * Created by tobias on 17.02.17.
+ */
 class Project {
 
 	@JsonName(value = "id", handler = classOf[UUIDSerializerHandler])

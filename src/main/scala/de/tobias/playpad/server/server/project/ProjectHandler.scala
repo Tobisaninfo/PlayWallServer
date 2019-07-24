@@ -13,8 +13,8 @@ import org.eclipse.jetty.websocket.api.annotations.{OnWebSocketClose, OnWebSocke
 import scala.collection.{Map, mutable}
 
 /**
-  * Created by tobias on 13.02.17.
-  */
+ * Created by tobias on 13.02.17.
+ */
 @Deprecated
 @WebSocket class ProjectHandler(sessionDao: Dao[account.Session, Int], connection: Connection) {
 

@@ -5,7 +5,8 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface JsonCollection {
+public @interface JsonCollection
+{
 
 	/**
 	 * Name of the field for the json.

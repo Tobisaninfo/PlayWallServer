@@ -5,8 +5,8 @@ import java.util.UUID
 import de.tobias.playpad.server.json.{JsonName, JsonParent, UUIDSerializerHandler}
 
 /**
-  * Created by tobias on 23.02.17.
-  */
+ * Created by tobias on 23.02.17.
+ */
 class Design {
 
 	@JsonName(value = "id", handler = classOf[UUIDSerializerHandler])

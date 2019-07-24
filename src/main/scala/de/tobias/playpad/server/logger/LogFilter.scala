@@ -5,8 +5,8 @@ import ch.qos.logback.core.filter.Filter
 import ch.qos.logback.core.spi.FilterReply
 
 /**
-  * Created by tobias on 26.02.17.
-  */
+ * Created by tobias on 26.02.17.
+ */
 class LogFilter extends Filter[ILoggingEvent] {
 	override def decide(e: ILoggingEvent): FilterReply = {
 		if (e.getLoggerName.contains("com.j256.ormlite.table.TableUtils")) {

@@ -10,8 +10,8 @@ import de.tobias.playpad.server.server.{Result, Status}
 import spark.{Request, Response, Route}
 
 /**
-  * Created by tobias on 01.03.17.
-  */
+ * Created by tobias on 01.03.17.
+ */
 class ProjectModificationGet(connection: Connection, sessionDao: Dao[Session, Int]) extends Route {
 
 	override def handle(request: Request, response: Response): AnyRef = {

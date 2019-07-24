@@ -7,8 +7,8 @@ import de.tobias.playpad.server.project.settings.PadSettings
 import de.tobias.playpad.server.sql.{ColumnName, ForeignKey, Id, Table}
 
 /**
-  * Created by tobias on 17.02.17.
-  */
+ * Created by tobias on 17.02.17.
+ */
 @Table("Pad")
 class Pad() {
 

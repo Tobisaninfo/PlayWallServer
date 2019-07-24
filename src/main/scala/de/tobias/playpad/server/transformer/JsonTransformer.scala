@@ -4,8 +4,8 @@ import com.google.gson.{Gson, JsonObject}
 import spark.ResponseTransformer
 
 /**
-  * Created by tobias on 05.02.17.
-  */
+ * Created by tobias on 05.02.17.
+ */
 class JsonTransformer extends ResponseTransformer {
 
 	val gson = new Gson()

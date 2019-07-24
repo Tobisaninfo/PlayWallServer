@@ -21,8 +21,8 @@ import org.eclipse.jetty.websocket.api.annotations.{OnWebSocketClose, OnWebSocke
 import scala.collection.{Map, mutable}
 
 /**
-  * Created by tobias on 19.02.17.
-  */
+ * Created by tobias on 19.02.17.
+ */
 @WebSocket class ProjectSyncHandler(sessionDao: Dao[account.Session, Int], connection: Connection) {
 
 	val SESSION_KEY_HEADER = "key"

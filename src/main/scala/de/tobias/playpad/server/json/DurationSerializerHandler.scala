@@ -1,8 +1,7 @@
 package de.tobias.playpad.server.json
 
-import javafx.util.Duration
-
 import com.google.gson.{JsonElement, JsonPrimitive}
+import javafx.util.Duration
 
 class DurationSerializerHandler extends SerializerHandler {
 	override def serialize(value: Any): JsonPrimitive = value match {

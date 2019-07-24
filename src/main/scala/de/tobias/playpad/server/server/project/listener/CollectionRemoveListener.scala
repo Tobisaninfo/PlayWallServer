@@ -1,4 +1,5 @@
 package de.tobias.playpad.server.server.project.listener
+
 import java.sql.Connection
 import java.util.UUID
 
@@ -6,8 +7,8 @@ import com.google.gson.JsonObject
 import de.tobias.playpad.server.server.SqlHelper
 
 /**
-  * Created by tobias on 18.02.17.
-  */
+ * Created by tobias on 18.02.17.
+ */
 @Deprecated
 class CollectionRemoveListener extends Listener {
 	override def onChange(json: JsonObject, connection: Connection): Unit = {

@@ -1,8 +1,8 @@
 package de.tobias.playpad.server.settings
 
 /**
-  * Created by tobias on 05.02.17.
-  */
+ * Created by tobias on 05.02.17.
+ */
 class Settings {
 
 	var db_host: String = "localhost"

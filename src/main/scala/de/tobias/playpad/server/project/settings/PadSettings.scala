@@ -1,10 +1,10 @@
 package de.tobias.playpad.server.project.settings
 
 import java.util.UUID
-import javafx.util.Duration
 
 import de.tobias.playpad.server.json._
 import de.tobias.playpad.server.project.{Design, Pad}
+import javafx.util.Duration
 
 class PadSettings {
 

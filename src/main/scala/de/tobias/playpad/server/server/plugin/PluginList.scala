@@ -6,8 +6,8 @@ import de.tobias.playpad.server.plugin.Plugin
 import spark.{Request, Response, Route}
 
 /**
-  * Created by tobias on 05.02.17.
-  */
+ * Created by tobias on 05.02.17.
+ */
 class PluginList(val dao: Dao[Plugin, Int]) extends Route {
 
 	val gson = new Gson()

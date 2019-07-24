@@ -9,8 +9,8 @@ import com.j256.ormlite.table.DatabaseTable
 import scala.util.Random
 
 /**
-  * Created by tobias on 15.02.17.
-  */
+ * Created by tobias on 15.02.17.
+ */
 @DatabaseTable(tableName = "Session") class Session() {
 
 	@DatabaseField(generatedId = true) private val id: Int = 0
@@ -26,6 +26,7 @@ import scala.util.Random
 	}
 
 	def getId: Int = id
+
 	def getAccount: Account = account
 
 
@@ -49,6 +50,7 @@ object Session {
 	private val length = 100
 
 	val alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
 	def generateKey(): String = (1 to length).map(_ => alpha(Random.nextInt.abs % alpha.length())).mkString
 
 	def getSession(sessionKey: String, sessionDao: Dao[Session, Int]): Option[Session] = {

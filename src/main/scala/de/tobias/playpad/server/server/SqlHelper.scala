@@ -5,8 +5,8 @@ import java.sql.{Connection, PreparedStatement}
 import java.util.UUID
 
 /**
-  * Created by tobias on 17.02.17.
-  */
+ * Created by tobias on 17.02.17.
+ */
 object SqlHelper {
 
 	def insertOrUpdate[T](connection: Connection, table: String, idValue: Int, field: String, value: T): Unit = {
