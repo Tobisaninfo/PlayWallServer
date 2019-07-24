@@ -1,8 +1,5 @@
-# Created by .ignore support plugin (hsz.mobi)
+/.idea/
+
 /settings.properties
 /target
 /deploy
-/.idea/libraries
-/.idea/dictionaries
-workspace.xml
-kotlinc.xml
